@@ -1,0 +1,19 @@
+{
+  "name": "pika-js",
+  "version": "0.1.0",
+  "description": "A function toolkit",
+  "main": "index.js",
+  "scripts": {
+    "compress": "uglifyjs src/index.js -c -m -o dist/pika.min.js --source-map"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leonardwoo/pika-js.git"
+  },
+  "author": "Leonard Woo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leonardwoo/pika-js/issues"
+  },
+  "homepage": "https://github.com/seppleonardwooiko/pika-js#readme"
+}
