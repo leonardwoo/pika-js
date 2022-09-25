@@ -1,5 +1,5 @@
 {
-  "name": "pika-js",
+  "name": "@leonardwoo/pika-js",
   "version": "0.1.0",
   "description": "A function toolkit",
   "main": "index.js",

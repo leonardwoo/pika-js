@@ -1,5 +1,5 @@
 # Pika JS
-![GitHub](https://img.shields.io/github/license/seppiko/pika-js?style=flat-square)
+![GitHub](https://img.shields.io/github/license/leonardwoo/pika-js?style=flat-square)
 
 A function toolkit
 
