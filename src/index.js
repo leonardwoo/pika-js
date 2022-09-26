@@ -29,6 +29,23 @@ class Pikajs {
     }
     return true;
   }
+
+  static checkRepeat(text='') {
+    var count = 0;
+    for (var i =  0; i < text.Length - 1; i++) {
+      if (text[i] == text[i + 1]) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  static checkChar(text='', regex='') {
+    if (text.search(regex) >= 0) {
+      return text.match(regex).length;
+    }
+    return 0;
+  }
 }
 
 function CalcMinMain() {
@@ -53,5 +70,31 @@ function InvaildInfo(inputId='',inputEId='', regex='', message='') {
     if (inputEi != null) {
       vaildInput.parentNode.removeChild(inputEi);
     }
+  }
+}
+
+function PassQCalc(pass='') {
+  var rankScore = 0;
+
+  rankScore += (pass.length > 8)? 4: 0;
+  rankScore += (pass.length - Pikajs.checkChar(pass, /[a-z]/g)) * 2;
+  rankScore += (pass.length - Pikajs.checkChar(pass, /[A-Z]/g)) * 3;
+  rankScore += (pass.length - Pikajs.checkChar(pass, /[0-9]/g)) * 2;
+  rankScore += Pikajs.checkChar(pass, /((?=["!\\\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~"])[^A-Za-z0-9])/g) * 6;
+
+  rankScore -= Pikajs.checkChar(pass, /[A-Z]{3,}/g) * 2;
+  rankScore -= Pikajs.checkChar(pass, /[a-z]{3,}/g) * 2;
+  rankScore -= Pikajs.checkChar(pass, /[0-9]{3,}/g) * 2;
+  rankScore -= Pikajs.checkChar(pass, /["!\\\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~"]{3,}/g) * 2;
+
+  var rn = Pikajs.checkRepeat(pass);
+  rankScore -= rn * (rn - 1);
+
+  if (rankScore <= 0) {
+    return 0;
+  // } else if (rankScore > 100) {
+  //   return 100;
+  } else {
+    return rankScore;
   }
 }

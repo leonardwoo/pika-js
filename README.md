@@ -38,4 +38,20 @@ like this:
 </div>
 ```
 
+### `PassQCalc(pass='')`
+
+Password Quality Calculator, if the value is greater than 80, it is a strong password.
+
+Async like this:
+
+```js
+async function pqcalc(pass='') {
+  return await PassQCalc(pass);
+}
+
+pqcalc('P422w0Rd').then((result) => {
+    document.getElementById("rank").innerText = result;
+});
+```
+
 <!-- ## Sponsors -->
