@@ -6,19 +6,19 @@ class Pikajs {
   constructor() {
   }
 
-  static getEleHeight(ele) {
-    var e = document.querySelector(ele);
-    if (e == null) {
+  static getSelectorHeight(selector) {
+    var s = document.querySelector(selector);
+    if (s == null) {
       return 0;
     }
-    var h = e.clientHeight;
-    if (h == null || h < 0) {
-      h = 0;
+    var sh = s.clientHeight;
+    if (sh == null || sh < 0) {
+      sh = 0;
     }
-    return h;
+    return sh;
   }
   
-  static isSelection() {
+  static hasSelection() {
     var e = document.getElementsByTagName('section')[0]
     if (e == null) {
       return false;
@@ -28,6 +28,12 @@ class Pikajs {
       return false;
     }
     return true;
+  }
+
+  static isPassword(pass='') {
+    // ASCII all character without control and space
+    const regex = /^[\x21-\x7E]{8,20}$/g;
+    return regex.test(pass);
   }
 
   static checkRepeat(text='') {
@@ -46,12 +52,38 @@ class Pikajs {
     }
     return 0;
   }
+
+  static isUpperChar(text='') {
+    const regex = /\p{Lu}+/gu;
+    return regex.match(text).length > 0;
+  }
+
+  static isLowwerChar(text='') {
+    const regex = /\p{Ll}+/gu;
+    return regex.match(text).length > 0;
+  }
+
+  static isDigit(text='') {
+    const regex = /\p{Nd}+/gu;
+    return regex.match(text).length > 0;
+  }
+
+  static isPunctuation(text='') {
+    const regex = /\p{P}+/gu;
+    return regex.match(text).length > 0;
+  }
+
+  static isWhiteSpace(text='') {
+    const regex = /\s+/gu;
+    return regex.match(text).length > 0;
+  }
+
 }
 
 function CalcMinMain() {
-  let headerHeight = Pikajs.getEleHeight('header');
-  let selectionHeight = Pikajs.isSelection();
-  let footerHeight = selectionHeight? 0: Pikajs.getEleHeight('footer');
+  let headerHeight = Pikajs.getSelectorHeight('header');
+  let selectionHeight = Pikajs.hasSelection();
+  let footerHeight = selectionHeight? 0: Pikajs.getSelectorHeight('footer');
   let main = document.querySelector('main');
   main.style.setProperty('min-height', 'calc(100vh - ' + (headerHeight + footerHeight) + 'px)');
 }
@@ -65,6 +97,8 @@ function InvaildInfo(inputId='',inputEId='', regex='', message='') {
       inputEi.setAttribute('id', inputEId);
       inputEi.innerText = message;
       vaildInput.parentNode.appendChild(inputEi);
+    } else {
+      inputEi.innerText = message;
     }
   } else {
     if (inputEi != null) {
