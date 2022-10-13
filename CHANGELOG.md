@@ -1,6 +1,6 @@
 # Pika JS
 
-## 0.1.1 2022-
+## 0.1.1 2022-10-13
 1. Add password quality calculator
 2. Fixed bug
 3. Update document

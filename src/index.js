@@ -2,43 +2,40 @@
 "use strict";
 
 class Pikajs {
+  constructor() {}
 
-  constructor() {
+  static _height(element) {
+    if (element == null) {
+      return -1;
+    }
+    var elementHeight = element.clientHeight;
+    if (elementHeight == null || elementHeight < 0) {
+      elementHeight = -1;
+    }
+    return elementHeight;
   }
 
   static getSelectorHeight(selector) {
     var s = document.querySelector(selector);
-    if (s == null) {
-      return 0;
-    }
-    var sh = s.clientHeight;
-    if (sh == null || sh < 0) {
-      sh = 0;
-    }
-    return sh;
-  }
-  
-  static hasSelection() {
-    var e = document.getElementsByTagName('section')[0]
-    if (e == null) {
-      return false;
-    }
-    var h = e.clientHeight;
-    if (h == null || h < 0) {
-      return false;
-    }
-    return true;
+    var sh = this._height(s);
+    return (sh < 0? 0: sh);
   }
 
-  static isPassword(pass='') {
+  static hasSelectionHeight() {
+    var e = document.getElementsByTagName("section")[0];
+    var eh = this._height(e);
+    return !(eh < 0);
+  }
+
+  static isPassword(pass = "") {
     // ASCII all character without control and space
     const regex = /^[\x21-\x7E]{8,20}$/g;
     return regex.test(pass);
   }
 
-  static checkRepeat(text='') {
+  static checkRepeat(text = "") {
     var count = 0;
-    for (var i =  0; i < text.Length - 1; i++) {
+    for (var i = 0; i < text.Length - 1; i++) {
       if (text[i] == text[i + 1]) {
         count++;
       }
@@ -46,43 +43,68 @@ class Pikajs {
     return count;
   }
 
-  static checkChar(text='', regex='') {
+  static checkChar(text = "", regex = "") {
     if (text.search(regex) >= 0) {
       return text.match(regex).length;
     }
     return 0;
   }
 
-  static isUpperChar(text='') {
+  static isUpperChar(text = "") {
     const regex = /\p{Lu}+/gu;
     return regex.match(text).length > 0;
   }
 
-  static isLowwerChar(text='') {
+  static isLowwerChar(text = "") {
     const regex = /\p{Ll}+/gu;
     return regex.match(text).length > 0;
   }
 
-  static isDigit(text='') {
+  static isDigit(text = "") {
     const regex = /\p{Nd}+/gu;
     return regex.match(text).length > 0;
   }
 
-  static isPunctuation(text='') {
+  static isPunctuation(text = "") {
     const regex = /\p{P}+/gu;
     return regex.match(text).length > 0;
   }
 
-  static isWhiteSpace(text='') {
+  static isWhiteSpace(text = "") {
     const regex = /\s+/gu;
     return regex.match(text).length > 0;
+  }
+
+  // window.btoa(""); // encode a string
+  // window.atob(""); // decode the string
+
+  static base64ToArrayBuffer(base64) {
+    var binaryString = window.atob(base64);
+    return this.stringToArrayBuffer(binaryString);
+  }
+
+  static arrayBufferToBase64(arraybuffer) {
+    var binary = this.arrayBufferToString(arraybuffer);
+    return window.btoa(binary);
+  }
+
+  static stringToArrayBuffer(str) {
+    const bytes = new Uint8Array(str.length);
+    for (let i = 0; i < str.length; i++) {
+      bytes[i] = str.charCodeAt(i);
+    }
+    return bytes.buffer;
+  }
+
+  static arrayBufferToString(arraybuffer) {
+    return String.fromCharCode.apply(null, new Uint8Array(arraybuffer));
   }
 
 }
 
 function CalcMinMain() {
   let headerHeight = Pikajs.getSelectorHeight('header');
-  let selectionHeight = Pikajs.hasSelection();
+  let selectionHeight = Pikajs.hasSelectionHeight();
   let footerHeight = selectionHeight? 0: Pikajs.getSelectorHeight('footer');
   let main = document.querySelector('main');
   main.style.setProperty('min-height', 'calc(100vh - ' + (headerHeight + footerHeight) + 'px)');
