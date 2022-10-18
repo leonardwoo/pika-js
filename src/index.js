@@ -28,7 +28,8 @@ class Pikajs {
   }
 
   static isPassword(pass = "") {
-    // ASCII all character without control and space
+    // ASCII printable characters, letters, digits, punctuation marks, and a few miscellaneous symbols.
+    // But without space.
     const regex = /^[\x21-\x7E]{8,20}$/g;
     return regex.test(pass);
   }
@@ -98,6 +99,16 @@ class Pikajs {
 
   static arrayBufferToString(arraybuffer) {
     return String.fromCharCode.apply(null, new Uint8Array(arraybuffer));
+  }
+
+  static getDarkMode() {
+    var prefersColorScheme = false;
+    if (window.matchMedia('(prefers-color-scheme)').matches) {
+      if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+        prefersColorScheme = true;
+      }
+    }
+    return prefersColorScheme;
   }
 
 }

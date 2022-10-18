@@ -1,6 +1,6 @@
 {
   "name": "@leonardwoo/pika-js",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A function toolkit",
   "main": "index.js",
   "scripts": {
@@ -15,5 +15,14 @@
   "bugs": {
     "url": "https://github.com/leonardwoo/pika-js/issues"
   },
-  "homepage": "https://github.com/leonardwoo/pika-js#readme"
+  "homepage": "https://github.com/leonardwoo/pika-js#readme",
+  "contributors": [
+    "Leonard Woo (https://github.com/leonardwoo)"
+  ],
+  "keywords": [
+    "browser",
+    "toolkit",
+    "front-end",
+    "web"
+  ]
 }
