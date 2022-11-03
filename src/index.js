@@ -102,13 +102,11 @@ class Pikajs {
   }
 
   static getDarkMode() {
-    let prefersColorScheme = false;
+    let darkMode = undefined;
     if (window.matchMedia('(prefers-color-scheme)').matches) {
-      if(window.matchMedia('(prefers-color-scheme: dark)').matches){
-        prefersColorScheme = true;
-      }
+      darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
-    return prefersColorScheme;
+    return darkMode;
   }
 
 }
