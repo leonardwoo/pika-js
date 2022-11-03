@@ -8,7 +8,7 @@ class Pikajs {
     if (element == null) {
       return -1;
     }
-    var elementHeight = element.clientHeight;
+    let elementHeight = element.clientHeight;
     if (elementHeight == null || elementHeight < 0) {
       elementHeight = -1;
     }
@@ -16,14 +16,14 @@ class Pikajs {
   }
 
   static getSelectorHeight(selector) {
-    var s = document.querySelector(selector);
-    var sh = this._height(s);
+    const s = document.querySelector(selector);
+    const sh = this._height(s);
     return (sh < 0? 0: sh);
   }
 
   static hasSelectionHeight() {
-    var e = document.getElementsByTagName("section")[0];
-    var eh = this._height(e);
+    const e = document.getElementsByTagName("section")[0];
+    const eh = this._height(e);
     return !(eh < 0);
   }
 
@@ -35,9 +35,9 @@ class Pikajs {
   }
 
   static checkRepeat(text = "") {
-    var count = 0;
-    for (var i = 0; i < text.Length - 1; i++) {
-      if (text[i] == text[i + 1]) {
+    let count = 0;
+    for (let i = 0; i < text.length - 1; i++) {
+      if (text[i] === text[i + 1]) {
         count++;
       }
     }
@@ -80,12 +80,12 @@ class Pikajs {
   // window.atob(""); // decode the string
 
   static base64ToArrayBuffer(base64) {
-    var binaryString = window.atob(base64);
+    const binaryString = window.atob(base64);
     return this.stringToArrayBuffer(binaryString);
   }
 
   static arrayBufferToBase64(arraybuffer) {
-    var binary = this.arrayBufferToString(arraybuffer);
+    const binary = this.arrayBufferToString(arraybuffer);
     return window.btoa(binary);
   }
 
@@ -102,7 +102,7 @@ class Pikajs {
   }
 
   static getDarkMode() {
-    var prefersColorScheme = false;
+    let prefersColorScheme = false;
     if (window.matchMedia('(prefers-color-scheme)').matches) {
       if(window.matchMedia('(prefers-color-scheme: dark)').matches){
         prefersColorScheme = true;
@@ -121,40 +121,40 @@ function CalcMinMain() {
   main.style.setProperty('min-height', 'calc(100vh - ' + (headerHeight + footerHeight) + 'px)');
 }
 
-function InvaildInfo(inputId='',inputEId='', regex='', message='') {
-  var vaildInput = document.getElementById(inputId);
-  var inputEi = document.getElementById(inputEId);
-  if (!regex.test(vaildInput.value)) {
+function InvalidInfo(inputId='',inputEId='', regex='', message='') {
+  const validInput = document.getElementById(inputId);
+  let inputEi = document.getElementById(inputEId);
+  if (!regex.test(validInput.value)) {
     if (inputEi == null) {
-      var inputEi = document.createElement('p');
+      inputEi = document.createElement('p');
       inputEi.setAttribute('id', inputEId);
       inputEi.innerText = message;
-      vaildInput.parentNode.appendChild(inputEi);
+      validInput.parentNode.appendChild(inputEi);
     } else {
       inputEi.innerText = message;
     }
   } else {
     if (inputEi != null) {
-      vaildInput.parentNode.removeChild(inputEi);
+      validInput.parentNode.removeChild(inputEi);
     }
   }
 }
 
 function PassQCalc(pass='') {
-  var rankScore = 0;
+  let rankScore = 0;
 
   rankScore += (pass.length > 8)? 4: 0;
   rankScore += (pass.length - Pikajs.checkChar(pass, /[a-z]/g)) * 2;
   rankScore += (pass.length - Pikajs.checkChar(pass, /[A-Z]/g)) * 3;
   rankScore += (pass.length - Pikajs.checkChar(pass, /[0-9]/g)) * 2;
-  rankScore += Pikajs.checkChar(pass, /((?=["!\\\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~"])[^A-Za-z0-9])/g) * 6;
+  rankScore += Pikajs.checkChar(pass, /((?=["!\\\"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~"])[^A-Za-z0-9])/g) * 6;
 
   rankScore -= Pikajs.checkChar(pass, /[A-Z]{3,}/g) * 2;
   rankScore -= Pikajs.checkChar(pass, /[a-z]{3,}/g) * 2;
   rankScore -= Pikajs.checkChar(pass, /[0-9]{3,}/g) * 2;
-  rankScore -= Pikajs.checkChar(pass, /["!\\\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~"]{3,}/g) * 2;
+  rankScore -= Pikajs.checkChar(pass, /["!\\\"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~"]{3,}/g) * 2;
 
-  var rn = Pikajs.checkRepeat(pass);
+  const rn = Pikajs.checkRepeat(pass);
   rankScore -= rn * (rn - 1);
 
   if (rankScore <= 0) {
