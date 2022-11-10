@@ -1,10 +1,10 @@
 {
   "name": "@leonardwoo/pika-js",
-  "version": "0.1.1",
-  "description": "A function toolkit",
+  "version": "0.1.2",
+  "description": "A function toolkit.",
   "main": "index.js",
   "scripts": {
-    "compress": "uglifyjs src/index.js -c -m -o dist/pika.min.js --source-map"
+    "compress": "terser src/pika.js src/index.js -o dist/pika.min.js -c -m --comments --source-map"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,14 @@
   "bugs": {
     "url": "https://github.com/leonardwoo/pika-js/issues"
   },
-  "homepage": "https://github.com/leonardwoo/pika-js#readme"
+  "homepage": "https://github.com/leonardwoo/pika-js#readme",
+  "contributors": [
+    "Leonard Woo (https://github.com/leonardwoo)"
+  ],
+  "keywords": [
+    "browser",
+    "toolkit",
+    "front-end",
+    "web"
+  ]
 }

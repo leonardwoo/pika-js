@@ -4,7 +4,7 @@
 
 ## Introduction
 
-A function toolkit
+A function toolkit.
 
 ## CDN
 
@@ -12,7 +12,12 @@ A function toolkit
 
 ## Browser Use
 
-`<script src="https://cdn.jsdelivr.net/npm/@leonardwoo/pika-js@latest/dist/pika.min.js" defer></script>`
+```html
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<script src="https://cdn.jsdelivr.net/npm/@leonardwoo/pika-js@latest/dist/pika.min.js" defer></script>
+```
 
 ## Document
 
@@ -26,7 +31,7 @@ window.addEventListener('load', (event) => {
 });
 ```
 
-### `InvaildInfo(inputId='',inputEId='', regex='', message='')`
+### `InvalidInfo(inputId='',inputEId='', regex='', message='')`
 
 Add or remove a `p` tag with `inputEId` below the tag to display validation information.
 
@@ -34,8 +39,13 @@ like this:
 ```html
 <div>
     <input type="text" id="{{inputId}}" />
-    <p id="{{inputEId}}">{{message}}</P>
 </div>
+<script>
+  document.getElementById('inputId').onchange = (event) => {
+    InvalidInfo('{{inputId}}','{{inputEId}}', '{{regex}}', '{{message}}');
+    // when inputId is invalid with regex, add <p id="{{inputEId}}">{{message}}</p> under input.
+  }
+</script>
 ```
 
 ### `PassQCalc(pass='')`
@@ -54,4 +64,6 @@ pqcalc('P422w0Rd').then((result) => {
 });
 ```
 
-<!-- ## Sponsors -->
+## Sponsors
+
+<a href="https://www.jetbrains.com/" target="_blank"><img src="https://seppiko.org/images/jetbrains.png" alt="JetBrians" width="100px"></a>
