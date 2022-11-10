@@ -4,7 +4,7 @@
 
 ## Introduction
 
-A function toolkit
+A function toolkit.
 
 ## CDN
 
@@ -12,7 +12,12 @@ A function toolkit
 
 ## Browser Use
 
-`<script src="https://cdn.jsdelivr.net/npm/@leonardwoo/pika-js@latest/dist/pika.min.js" defer></script>`
+```html
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<script src="https://cdn.jsdelivr.net/npm/@leonardwoo/pika-js@latest/dist/pika.min.js" defer></script>
+```
 
 ## Document
 

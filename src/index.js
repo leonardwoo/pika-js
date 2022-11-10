@@ -1,116 +1,32 @@
-// Leonard Woo
+/*
+ * Copyright 2022 Leonard Woo.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 "use strict";
 
-class Pikajs {
-  constructor() {}
-
-  static _height(element) {
-    if (element == null) {
-      return -1;
-    }
-    let elementHeight = element.clientHeight;
-    if (elementHeight == null || elementHeight < 0) {
-      elementHeight = -1;
-    }
-    return elementHeight;
-  }
-
-  static getSelectorHeight(selector) {
-    const s = document.querySelector(selector);
-    const sh = this._height(s);
-    return (sh < 0? 0: sh);
-  }
-
-  static hasSelectionHeight() {
-    const e = document.getElementsByTagName("section")[0];
-    const eh = this._height(e);
-    return !(eh < 0);
-  }
-
-  static isPassword(pass = "") {
-    // ASCII printable characters, letters, digits, punctuation marks, and a few miscellaneous symbols.
-    // But without space.
-    const regex = /^[\x21-\x7E]{8,20}$/g;
-    return regex.test(pass);
-  }
-
-  static checkRepeat(text = "") {
-    let count = 0;
-    for (let i = 0; i < text.length - 1; i++) {
-      if (text[i] === text[i + 1]) {
-        count++;
-      }
-    }
-    return count;
-  }
-
-  static checkChar(text = "", regex = "") {
-    if (text.search(regex) >= 0) {
-      return text.match(regex).length;
-    }
-    return 0;
-  }
-
-  static isUpperChar(text = "") {
-    const regex = /\p{Lu}+/gu;
-    return regex.match(text).length > 0;
-  }
-
-  static isLowwerChar(text = "") {
-    const regex = /\p{Ll}+/gu;
-    return regex.match(text).length > 0;
-  }
-
-  static isDigit(text = "") {
-    const regex = /\p{Nd}+/gu;
-    return regex.match(text).length > 0;
-  }
-
-  static isPunctuation(text = "") {
-    const regex = /\p{P}+/gu;
-    return regex.match(text).length > 0;
-  }
-
-  static isWhiteSpace(text = "") {
-    const regex = /\s+/gu;
-    return regex.match(text).length > 0;
-  }
-
-  // window.btoa(""); // encode a string
-  // window.atob(""); // decode the string
-
-  static base64ToArrayBuffer(base64) {
-    const binaryString = window.atob(base64);
-    return this.stringToArrayBuffer(binaryString);
-  }
-
-  static arrayBufferToBase64(arraybuffer) {
-    const binary = this.arrayBufferToString(arraybuffer);
-    return window.btoa(binary);
-  }
-
-  static stringToArrayBuffer(str) {
-    const bytes = new Uint8Array(str.length);
-    for (let i = 0; i < str.length; i++) {
-      bytes[i] = str.charCodeAt(i);
-    }
-    return bytes.buffer;
-  }
-
-  static arrayBufferToString(arraybuffer) {
-    return String.fromCharCode.apply(null, new Uint8Array(arraybuffer));
-  }
-
-  static getDarkMode() {
-    let darkMode = undefined;
-    if (window.matchMedia('(prefers-color-scheme)').matches) {
-      darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-    return darkMode;
-  }
-
-}
-
+/**
+ * Automatic calculator main tag min-height on screen
+ *
+ * @constructor
+ */
 function CalcMinMain() {
   let headerHeight = Pikajs.getSelectorHeight('header');
   let selectionHeight = Pikajs.hasSelectionHeight();
@@ -119,6 +35,15 @@ function CalcMinMain() {
   main.style.setProperty('min-height', 'calc(100vh - ' + (headerHeight + footerHeight) + 'px)');
 }
 
+/**
+ * Add message under the input tag with regex
+ *
+ * @param inputId input tag id
+ * @param inputEId input error message id with p tag
+ * @param regex regex
+ * @param message message
+ * @constructor
+ */
 function InvalidInfo(inputId='',inputEId='', regex='', message='') {
   const validInput = document.getElementById(inputId);
   let inputEi = document.getElementById(inputEId);
@@ -138,6 +63,13 @@ function InvalidInfo(inputId='',inputEId='', regex='', message='') {
   }
 }
 
+/**
+ * Calculator password quality
+ *
+ * @param pass password text
+ * @returns {number} quality score
+ * @constructor
+ */
 function PassQCalc(pass='') {
   let rankScore = 0;
 
