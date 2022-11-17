@@ -26,6 +26,8 @@
 
 /**
  * Pika js class
+ *
+ * @author Leonard Woo
  */
 class Pikajs {
     constructor() {}
@@ -56,7 +58,7 @@ class Pikajs {
     /**
      * Has section tag
      *
-     * @returns {boolean} true is yes
+     * @returns {boolean} true is find last section tag
      */
     static hasSelectionHeight() {
         const e = document.getElementsByTagName("section")[0];
@@ -108,7 +110,7 @@ class Pikajs {
     }
 
     /**
-     * Is uppercase character
+     * Is uppercase letter character
      *
      * @param text text
      * @returns {boolean} true is has uppercase character
@@ -119,7 +121,7 @@ class Pikajs {
     }
 
     /**
-     * Is lowercase character
+     * Is lowercase letter character
      *
      * @param text text
      * @returns {boolean} true is has lowercase character
@@ -225,32 +227,19 @@ class Pikajs {
     }
 
     /**
-     * split animation element
-     * 
-     * @example
-     * <span class="animEles">test</span>
+     * Split animation element text
+     *
+     * like
+     * @code <span class="anim-eles">test</span>
      * to
-     * <span class="animEles"><span><em>t</em><em>e</em><em>s</em><em>t</em></span></span>
+     * @code <span class="anim-eles"><span><em>t</em><em>e</em><em>s</em><em>t</em></span></span>
      * 
-     * use with
-     * @example
-     * const animaEles = document.body.querySelectorAll(".animated-btn");
-     * animaEles.forEach((e) => {
-     * Pikajs.splitAnimaElement(e.innerHTML)
-     *   .then(function (event) {
-     *     e.innerHTML = event;
-     *   })
-     *   .catch(function (error) {
-           console.log(error);
-     *   });
-     * });
-     * 
-     * @param {Element} animEles animation element
+     * @param animEleText animation element
      * @returns target element with span and em tags
      */
-    static async splitAnimationElement(animEles) {
-        var target = "<span>";
-        animEles.split("").forEach((s) => {
+    static async splitAnimationElement(animEleText="") {
+        let target = "<span>";
+        animEleText.split("").forEach((s) => {
           target += "<em>" + s + "</em>";
         });
         target += "</span>";

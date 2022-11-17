@@ -1,5 +1,9 @@
 # Pika JS
 
+## 0.1.3 2022-
+1. Update `Pikajs`
+2. Add `DOCUMENT.md`
+
 ## 0.1.2 2022-11-10
 1. Add `Pikajs` class
 2. Update document
