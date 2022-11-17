@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-/*! Pika-js v0.1.2 (https://github.com/leonardwoo/pika-js) | Licensed under MIT (https://github.com/leonardwoo/pika-js/blob/main/LICENSE) */
+/*! Pika-js v0.1.3 (https://github.com/leonardwoo/pika-js) | Licensed under MIT (https://github.com/leonardwoo/pika-js/blob/main/LICENSE) */
 
 "use strict";
 
@@ -224,4 +224,36 @@ class Pikajs {
         return darkMode;
     }
 
+    /**
+     * split animation element
+     * 
+     * @example
+     * <span class="animEles">test</span>
+     * to
+     * <span class="animEles"><span><em>t</em><em>e</em><em>s</em><em>t</em></span></span>
+     * 
+     * use with
+     * @example
+     * const animaEles = document.body.querySelectorAll(".animated-btn");
+     * animaEles.forEach((e) => {
+     * Pikajs.splitAnimaElement(e.innerHTML)
+     *   .then(function (event) {
+     *     e.innerHTML = event;
+     *   })
+     *   .catch(function (error) {
+           console.log(error);
+     *   });
+     * });
+     * 
+     * @param {Element} animEles animation element
+     * @returns target element with span and em tags
+     */
+    static async splitAnimationElement(animEles) {
+        var target = "<span>";
+        animEles.split("").forEach((s) => {
+          target += "<em>" + s + "</em>";
+        });
+        target += "</span>";
+        return target;
+    }
 }
