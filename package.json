@@ -10,14 +10,13 @@
     "type": "git",
     "url": "git+https://github.com/leonardwoo/pika-js.git"
   },
-  "author": "Leonard Woo",
+  "author": "Leonard Woo (https://github.com/leonardwoo)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/leonardwoo/pika-js/issues"
   },
   "homepage": "https://github.com/leonardwoo/pika-js#readme",
   "contributors": [
-    "Leonard Woo (https://github.com/leonardwoo)"
   ],
   "keywords": [
     "browser",
