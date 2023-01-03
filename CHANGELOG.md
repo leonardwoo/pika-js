@@ -1,8 +1,9 @@
 # Pika JS
 
-## 0.1.3 2022-
+## 0.1.3 2023-01-03
 1. Update `Pikajs`
 2. Add `DOCUMENT.md`
+3. Update copyright
 
 ## 0.1.2 2022-11-10
 1. Add `Pikajs` class

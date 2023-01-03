@@ -16,12 +16,14 @@
     "url": "https://github.com/leonardwoo/pika-js/issues"
   },
   "homepage": "https://github.com/leonardwoo/pika-js#readme",
-  "contributors": [
-  ],
+  "contributors": [],
   "keywords": [
     "browser",
     "toolkit",
     "front-end",
     "web"
-  ]
+  ],
+  "dependencies": {
+    "terser": "^5.16.1"
+  }
 }
