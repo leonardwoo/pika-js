@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Leonard Woo.
+ * Copyright 2023 Leonard Woo.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,7 @@
 /**
  * Automatic calculator main tag min-height on screen
  *
+ * @author Leonard Woo
  * @constructor
  */
 function CalcMinMain() {
@@ -42,6 +43,7 @@ function CalcMinMain() {
  * @param inputEId input error message id with p tag
  * @param regex regex
  * @param message message
+ * @author Leonard Woo
  * @constructor
  */
 function InvalidInfo(inputId='',inputEId='', regex='', message='') {
@@ -68,6 +70,7 @@ function InvalidInfo(inputId='',inputEId='', regex='', message='') {
  *
  * @param pass password text
  * @returns {number} quality score
+ * @author Leonard Woo
  * @constructor
  */
 function PassQCalc(pass='') {

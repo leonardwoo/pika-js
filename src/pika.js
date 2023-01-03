@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Leonard Woo.
+ * Copyright 2023 Leonard Woo.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,12 +20,14 @@
  * SOFTWARE.
  */
 
-/*! Pika-js v0.1.2 (https://github.com/leonardwoo/pika-js) | Licensed under MIT (https://github.com/leonardwoo/pika-js/blob/main/LICENSE) */
+/*! Pika-js v0.1.3 (https://github.com/leonardwoo/pika-js) | Licensed under MIT (https://github.com/leonardwoo/pika-js/blob/main/LICENSE) */
 
 "use strict";
 
 /**
  * Pika js class
+ *
+ * @author Leonard Woo
  */
 class Pikajs {
     constructor() {}
@@ -56,7 +58,7 @@ class Pikajs {
     /**
      * Has section tag
      *
-     * @returns {boolean} true is yes
+     * @returns {boolean} true is find last section tag
      */
     static hasSelectionHeight() {
         const e = document.getElementsByTagName("section")[0];
@@ -108,7 +110,7 @@ class Pikajs {
     }
 
     /**
-     * Is uppercase character
+     * Is uppercase letter character
      *
      * @param text text
      * @returns {boolean} true is has uppercase character
@@ -119,7 +121,7 @@ class Pikajs {
     }
 
     /**
-     * Is lowercase character
+     * Is lowercase letter character
      *
      * @param text text
      * @returns {boolean} true is has lowercase character
@@ -224,4 +226,23 @@ class Pikajs {
         return darkMode;
     }
 
+    /**
+     * Split animation element text
+     *
+     * like
+     * @code <span class="anim-eles">test</span>
+     * to
+     * @code <span class="anim-eles"><span><em>t</em><em>e</em><em>s</em><em>t</em></span></span>
+     * 
+     * @param animEleText animation element
+     * @returns target element with span and em tags
+     */
+    static async splitAnimationElement(animEleText="") {
+        let target = "<span>";
+        animEleText.split("").forEach((s) => {
+          target += "<em>" + s + "</em>";
+        });
+        target += "</span>";
+        return target;
+    }
 }
