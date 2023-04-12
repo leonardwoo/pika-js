@@ -6,9 +6,17 @@
 
 Get element selector height
 
+### `getSelectorHeight(parentNode,selector='')`
+
+Get element selector height under parent node
+
 ### `hasSelectionHeight()`
 
 Has section tag
+
+### `hasSelectionHeight(parentNode)`
+
+Has section tag under parent node
 
 ### `isPassword(pass="")`
 
@@ -93,6 +101,17 @@ Calculate `min-height` and fill it in the style of the `main`, and ensure that m
 ```js
 window.addEventListener('load', (event) => {
     CalcMinMain();
+});
+```
+
+## `CalcMinMain(parentNode)`
+
+Calculate `min-height` and fill it in the style of the `main`, and ensure that main fills the entire page.
+
+```js
+window.addEventListener('load', (event) => {
+    let app = document.getElementById('app');
+    CalcMinMain(app);
 });
 ```
 

@@ -32,6 +32,7 @@
 class Pikajs {
     constructor() {}
 
+    // get element height, if element is null return -1
     static _height(element) {
         if (element == null) {
             return -1;
@@ -50,7 +51,18 @@ class Pikajs {
      * @returns {number} height
      */
     static getSelectorHeight(selector) {
-        const s = document.querySelector(selector);
+        return getSelectorHeight(document, selector);
+    }
+
+    /**
+     * Get element selector height under parent node
+     *
+     * @param parentNode parent node
+     * @param selector element selector
+     * @returns {number} height
+     */
+    static getSelectorHeight(parentNode, selector) {
+        const s = parentNode.querySelector(selector);
         const sh = this._height(s);
         return (sh < 0? 0: sh);
     }
@@ -61,7 +73,17 @@ class Pikajs {
      * @returns {boolean} true is find last section tag
      */
     static hasSelectionHeight() {
-        const e = document.getElementsByTagName("section")[0];
+        return this.hasSelectionHeight(document)
+    }
+
+    /**
+     * Has section tag under parent node
+     *
+     * @param parentNode parent node
+     * @returns {boolean} true is find last section tag
+     */
+    static hasSelectionHeight(parentNode) {
+        const e = parentNode.getElementsByTagName("section")[0];
         const eh = this._height(e);
         return !(eh < 0);
     }
