@@ -30,6 +30,17 @@ OR
 <script src="https://unpkg.com/@leonardwoo/pika-js/dist/pika.min.js" defer></script>
 ```
 
+## Development Version
+
+**Development version only for testing**
+
+```html
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<script src="https://cdn.jsdelivr.net/gh/leonardwoo/pika-js@dev/dist/pika.min.js" defer></script>
+```
+
 ## Document
 
 See [Document](DOCUMENT.md)
