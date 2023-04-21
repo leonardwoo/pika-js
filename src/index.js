@@ -29,10 +29,21 @@
  * @constructor
  */
 function CalcMinMain() {
-  let headerHeight = Pikajs.getSelectorHeight('header');
-  let selectionHeight = Pikajs.hasSelectionHeight();
-  let footerHeight = selectionHeight? 0: Pikajs.getSelectorHeight('footer');
-  let main = document.querySelector('main');
+  CalcMinMain(document);
+}
+
+/**
+ * Automatic calculator main tag min-height on screen under parent node
+ *
+ * @param parentNode parent node
+ * @author Leonard Woo
+ * @constructor
+ */
+function CalcMinMain(parentNode) {
+  let headerHeight = Pikajs.getSelectorHeight(parentNode, 'header');
+  let selectionHeight = Pikajs.hasSelectionHeight(parentNode);
+  let footerHeight = selectionHeight? 0: Pikajs.getSelectorHeight(parentNode, 'footer');
+  let main = parentNode.querySelector('main');
   main.style.setProperty('min-height', 'calc(100vh - ' + (headerHeight + footerHeight) + 'px)');
 }
 
