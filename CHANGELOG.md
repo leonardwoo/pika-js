@@ -1,9 +1,10 @@
 # Pika JS
 
-## 0.1.4 2023-0
+## 0.1.4 2023-04-21
 
 1. Update document
 2. Optimize code
+3. Update `CalcMinMain` with parent node
 
 ## 0.1.3 2023-01-03
 
