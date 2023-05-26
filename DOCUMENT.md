@@ -1,6 +1,61 @@
 # Pika JS document
 
-## `PikaJS`
+## `Pikajs`
+
+### `calcMinMain`
+
+Calculate `min-height` and fill it in the style of the `main`, and ensure that main fills the entire page.
+
+```js
+window.addEventListener('load', (event) => {
+    Pikajs.calcMinMain();
+});
+```
+
+### `calcMinMain(parentNode)`
+
+Calculate `min-height` and fill it in the style of the `main`, and ensure that main fills the entire page.
+
+```js
+window.addEventListener('load', (event) => {
+    let app = document.getElementById('app');
+    Pikajs.calcMinMain(app);
+});
+```
+
+### `invalidInfo(inputId='',inputEId='', regex='', message='')`
+
+Add or remove a `p` tag with `inputEId` below the tag to display validation information.
+
+like this:
+
+```html
+<div>
+    <input type="text" id="{{inputId}}" />
+</div>
+<script>
+  document.getElementById('inputId').onchange = (event) => {
+    Pikajs.invalidInfo('{{inputId}}','{{inputEId}}', '{{regex}}', '{{message}}');
+    // when inputId is invalid with regex, add <p id="{{inputEId}}">{{message}}</p> under input.
+  }
+</script>
+```
+
+### `passQCalc(pass='')`
+
+Password Quality Calculator, if the value is greater than 80, it is a strong password.
+
+Async like this:
+
+```js
+async function pqcalc(pass='') {
+  return await Pikajs.passQCalc(pass);
+}
+
+pqcalc('P422w0Rd').then((result) => {
+    document.getElementById("rank").innerText = result;
+});
+```
 
 ### `getSelectorHeight(selector='')`
 
@@ -91,59 +146,5 @@ animaEles.forEach((e) => {
         .catch(function (error) {
             console.log(error);
         });
-});
-```
-
-## `CalcMinMain`
-
-Calculate `min-height` and fill it in the style of the `main`, and ensure that main fills the entire page.
-
-```js
-window.addEventListener('load', (event) => {
-    CalcMinMain();
-});
-```
-
-## `CalcMinMain(parentNode)`
-
-Calculate `min-height` and fill it in the style of the `main`, and ensure that main fills the entire page.
-
-```js
-window.addEventListener('load', (event) => {
-    let app = document.getElementById('app');
-    CalcMinMain(app);
-});
-```
-
-## `InvalidInfo(inputId='',inputEId='', regex='', message='')`
-
-Add or remove a `p` tag with `inputEId` below the tag to display validation information.
-
-like this:
-```html
-<div>
-    <input type="text" id="{{inputId}}" />
-</div>
-<script>
-  document.getElementById('inputId').onchange = (event) => {
-    InvalidInfo('{{inputId}}','{{inputEId}}', '{{regex}}', '{{message}}');
-    // when inputId is invalid with regex, add <p id="{{inputEId}}">{{message}}</p> under input.
-  }
-</script>
-```
-
-## `PassQCalc(pass='')`
-
-Password Quality Calculator, if the value is greater than 80, it is a strong password.
-
-Async like this:
-
-```js
-async function pqcalc(pass='') {
-  return await PassQCalc(pass);
-}
-
-pqcalc('P422w0Rd').then((result) => {
-    document.getElementById("rank").innerText = result;
 });
 ```
