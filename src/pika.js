@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-/*! Pika-js v0.1.3 (https://github.com/leonardwoo/pika-js) | Licensed under MIT (https://github.com/leonardwoo/pika-js/blob/main/LICENSE) */
+/*! Pika-js v0.1.4 (https://github.com/leonardwoo/pika-js) | Licensed under MIT (https://github.com/leonardwoo/pika-js/blob/main/LICENSE) */
 
 "use strict";
 
