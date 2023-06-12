@@ -318,24 +318,4 @@ class Pikajs {
     }
     return darkMode;
   }
-
-  /**
-   * Split animation element text
-   *
-   * like
-   * @code <span class="anim-eles">test</span>
-   * to
-   * @code <span class="anim-eles"><span><em>t</em><em>e</em><em>s</em><em>t</em></span></span>
-   * 
-   * @param animEleText animation element
-   * @returns target element with span and em tags
-   */
-  static async splitAnimationElement(animEleText = "") {
-    let target = "<span>";
-    animEleText.split("").forEach((s) => {
-      target += "<em>" + s + "</em>";
-    });
-    target += "</span>";
-    return target;
-  }
 }

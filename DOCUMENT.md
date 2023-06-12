@@ -126,25 +126,3 @@ Convert byte buffer to string
 Get browser dark mode
 
 Return undefined is unsupported, true is dark mode, false is light mode
-
-### `splitAnimationElement(animEleText="")`
-
-Split animation element text
-
-Convert like
-`<span class="animEles">test</span>`
-to
-`<span class="animEles"><span><em>t</em><em>e</em><em>s</em><em>t</em></span></span>`
-
-```javascript
-const animaEles = document.body.querySelectorAll(".animEles");
-animaEles.forEach((e) => {
-    Pikajs.splitAnimationElement(e.innerHTML)
-        .then(function (event) {
-            e.innerHTML = event;
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-});
-```
