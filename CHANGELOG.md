@@ -7,6 +7,7 @@
 3. Remove `InvalidInfo` to `Pikajs.invalidInfo`
 4. Remove `PassQCalc` to `Pikajs.passQCalc`
 5. Update `Pikajs.splitAnimationElement` to `Pikajs.splitContent`
+6. Add `Pikajs.splitContentWithParity`
 
 ## 0.1.4 2023-04-21
 

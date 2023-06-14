@@ -127,9 +127,9 @@ Get browser dark mode
 
 Return undefined is unsupported, true is dark mode, false is light mode
 
-### `splitContent(content = "", separator = "", splitTag = '')`
+### `splitContent(content = "", separator = "", splitTag = "")`
 
-Split animation element text
+Split content
 
 Convert like
 `<span class="animEles">test</span>`
@@ -140,6 +140,28 @@ to
 const animaEles = document.body.querySelectorAll(".animEles");
 animaEles.forEach((e) => {
     Pikajs.splitContent(e.innerHTML, "", "em")
+        .then(function (event) {
+            e.innerHTML = event;
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+});
+```
+
+### `splitContentWithParity(content = "", separator = "", splitTag = "", evenClass = "", oddClass = "")`
+
+Split content with parity
+
+Convert like
+`<span class="animEles">test</span>`
+to
+`<span class="anim-eles"><em class="even">t</em><em class="odd">e</em><em class="even">s</em><em class="odd">t</em></span>`
+
+```javascript
+const animaEles = document.body.querySelectorAll(".animEles");
+animaEles.forEach((e) => {
+    Pikajs.splitContent(e.innerHTML, "", "em", "even", "odd")
         .then(function (event) {
             e.innerHTML = event;
         })

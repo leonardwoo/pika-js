@@ -327,13 +327,43 @@ class Pikajs {
    * to
    * @code <span class="anim-eles"><em>t</em><em>e</em><em>s</em><em>t</em></span>
    * 
-   * @param animEleText animation element
+   * @param {string} [content=""] element content
+   * @param {string} [separator=""] content separator
+   * @param {string} [splitTag=""] content split tag
    * @returns target element with span and em tags
    */
   static async splitContent(content = "", separator = "", splitTag = "") {
     let target = "";
     content.split(separator).forEach((s) => {
       target += "<"+ splitTag + ">" + s + "</" + splitTag + ">";
+    });
+    return target;
+  }
+
+  /**
+   * Split content with parity
+   *
+   * like
+   * @code <span class="anim-eles">test</span>
+   * to
+   * @code <span class="anim-eles"><em class="even">t</em><em class="odd">e</em><em class="even">s</em><em class="odd">t</em></span>
+   * 
+   * @param {string} [content=""] element content
+   * @param {string} [separator=""] content separator
+   * @param {string} [splitTag=""] content split tag name
+   * @param {string} [evenClass=""] even tag class name
+   * @param {string} [oddClass=""] odd tag class name
+   * @returns target element with span and em tags
+   */
+  static async splitContentWithParity(content = "", separator = "", splitTag = "", evenClass = "", oddClass = "") {
+    let target = "";
+    var i = 0;
+    content.split(separator).forEach((s) => {
+      if (i%2 == 0) {
+        target += "<"+ splitTag + " class=\"" + evenClass + "\">" + s + "</" + splitTag + ">";
+      } else {
+        target += "<"+ splitTag + " class=\"" + oddClass + "\">" + s + "</" + splitTag + ">";
+      }
     });
     return target;
   }
