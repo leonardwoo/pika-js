@@ -44,10 +44,10 @@ class Pikajs {
   /**
    * Add message under the input tag with regex
    *
-   * @param inputId input tag id
-   * @param inputEId input error message id with p tag
-   * @param regex regex
-   * @param message message
+   * @param {string} [inputId=''] input tag id
+   * @param {string} [inputEId=''] input error message id with p tag
+   * @param {string} [regex=''] regex
+   * @param {string} [message=''] message
    */
   static invalidInfo(inputId = '', inputEId = '', regex = '', message = '') {
     const validInput = document.getElementById(inputId);
@@ -71,7 +71,7 @@ class Pikajs {
   /**
    * Calculator password quality
    *
-   * @param pass password text
+   * @param {string} [pass=''] password text
    * @returns {number} quality score
    */
   static passQCalc(pass = '') {
@@ -109,7 +109,7 @@ class Pikajs {
    *
    * @param parentNode parent node
    * @param selector element selector
-   * @returns {number} height
+   * @returns {number} height, if selector height less then 0 return 0
    */
   static getSelectorHeight(parentNode, selector) {
     const s = parentNode.querySelector(selector);
@@ -120,7 +120,7 @@ class Pikajs {
   /**
    * Has section tag
    *
-   * @returns {boolean} true is find last section tag
+   * @returns {boolean} true if find last section tag
    */
   static hasSelectionHeight() {
     return this.hasSelectionHeight(document)
@@ -130,7 +130,7 @@ class Pikajs {
    * Has section tag under parent node
    *
    * @param parentNode parent node
-   * @returns {boolean} true is find last section tag
+   * @returns {boolean} true if find last section tag
    */
   static hasSelectionHeight(parentNode) {
     const e = parentNode.getElementsByTagName("section")[0];
@@ -141,7 +141,7 @@ class Pikajs {
   /**
    * Has article tag
    *
-   * @returns {boolean} true is find last article tag
+   * @returns {boolean} true if find last article tag
    */
   static hasArticleHeight() {
     return this.hasArticleHeight(document)
@@ -151,7 +151,7 @@ class Pikajs {
    * Has article tag under parent node
    *
    * @param parentNode parent node
-   * @returns {boolean} true is find last article tag
+   * @returns {boolean} true if find last article tag
    */
   static hasArticleHeight(parentNode) {
     const e = parentNode.getElementsByTagName("article")[0];
@@ -162,8 +162,8 @@ class Pikajs {
   /**
    * Is password (only ASCII printable characters without space)
    *
-   * @param pass password text
-   * @returns {boolean} true is yes
+   * @param {string} [pass=""] password text, length is bewteen 8 to 20
+   * @returns {boolean} true if text is password
    */
   static isPassword(pass = "") {
     // ASCII printable characters, letters, digits, punctuation marks, and a few miscellaneous symbols.
@@ -175,7 +175,7 @@ class Pikajs {
   /**
    * Check repeat character
    *
-   * @param text text
+   * @param {string} [text=""] text
    * @returns {number} repeat character number
    */
   static checkRepeat(text = "") {
@@ -191,8 +191,8 @@ class Pikajs {
   /**
    * Check character with regex
    *
-   * @param text text
-   * @param regex regex
+   * @param {string} [text=""] text
+   * @param {string} [regex=""] regex
    * @returns {number} If it is greater than 0, it is the number of regular strings
    */
   static checkChar(text = "", regex = "") {
@@ -205,10 +205,11 @@ class Pikajs {
   /**
    * Is uppercase letter character
    *
-   * @param text text
+   * @param {string} [text=""] text
    * @returns {boolean} true is has uppercase character
    */
   static isUpperChar(text = "") {
+    // A-Z
     const regex = /\p{Lu}+/gu;
     return regex.match(text).length > 0;
   }
@@ -216,10 +217,11 @@ class Pikajs {
   /**
    * Is lowercase letter character
    *
-   * @param text text
+   * @param {string} [text=""] text
    * @returns {boolean} true is has lowercase character
    */
   static isLowerChar(text = "") {
+    // a-z
     const regex = /\p{Ll}+/gu;
     return regex.match(text).length > 0;
   }
@@ -227,10 +229,11 @@ class Pikajs {
   /**
    * Is digit character
    *
-   * @param text text
+   * @param {string} [text=""] text
    * @returns {boolean} true is has digit character
    */
   static isDigit(text = "") {
+    // 0-9
     const regex = /\p{Nd}+/gu;
     return regex.match(text).length > 0;
   }
@@ -238,10 +241,11 @@ class Pikajs {
   /**
    * Is punctuation character
    *
-   * @param text text
+   * @param {string} [text=""] text
    * @returns {boolean} true is has punctuation character
    */
   static isPunctuation(text = "") {
+    // [\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]
     const regex = /\p{P}+/gu;
     return regex.match(text).length > 0;
   }
@@ -249,10 +253,11 @@ class Pikajs {
   /**
    * Is white space character
    *
-   * @param text text
+   * @param {string} [text=""] text
    * @returns {boolean} true is has white space character
    */
   static isWhiteSpace(text = "") {
+    // space tab
     const regex = /\s+/gu;
     return regex.match(text).length > 0;
   }
@@ -263,7 +268,7 @@ class Pikajs {
   /**
    * Decode Base64 to byte buffer
    *
-   * @param base64 base64 text
+   * @param {string} base64 base64 text
    * @returns {ArrayBufferLike} byte buffer
    */
   static base64ToArrayBuffer(base64) {
@@ -285,7 +290,7 @@ class Pikajs {
   /**
    * Convert string to byte buffer
    *
-   * @param str string
+   * @param {string} str string
    * @returns {ArrayBufferLike} byte buffer
    */
   static stringToArrayBuffer(str) {
@@ -328,12 +333,15 @@ class Pikajs {
    * @code <span class="anim-eles"><em>t</em><em>e</em><em>s</em><em>t</em></span>
    * 
    * @param {string} [content=""] element content
-   * @param {string} [separator=""] content separator
-   * @param {string} [splitTag=""] content split tag
-   * @returns target element with span and em tags
+   * @param {string} [separator=""] content separator char
+   * @param {string} [splitTag=""] split tag name
+   * @returns {string} target html with splitTag tags
    */
   static async splitContent(content = "", separator = "", splitTag = "") {
     let target = "";
+    if (splitTag.length < 1) {
+      return content;
+    }
     content.split(separator).forEach((s) => {
       target += "<"+ splitTag + ">" + s + "</" + splitTag + ">";
     });
@@ -349,21 +357,23 @@ class Pikajs {
    * @code <span class="anim-eles"><em class="even">t</em><em class="odd">e</em><em class="even">s</em><em class="odd">t</em></span>
    * 
    * @param {string} [content=""] element content
-   * @param {string} [separator=""] content separator
-   * @param {string} [splitTag=""] content split tag name
+   * @param {string} [separator=""] content separator char
+   * @param {string} [splitTag=""] split tag name
    * @param {string} [evenClass=""] even tag class name
    * @param {string} [oddClass=""] odd tag class name
-   * @returns target element with span and em tags
+   * @returns {string} target html with splitTag tags
    */
   static async splitContentWithParity(content = "", separator = "", splitTag = "", evenClass = "", oddClass = "") {
     let target = "";
+    if (splitTag == "") {
+      return content;
+    }
+    const evenAttr = (evenClass == "")? "": " class=\"" + evenClass + "\"";
+    const oddAttr = (oddClass == "")? "": " class=\"" + oddClass + "\"";
     var i = 0;
-    content.split(separator).forEach((s) => {
-      if (i%2 == 0) {
-        target += "<"+ splitTag + " class=\"" + evenClass + "\">" + s + "</" + splitTag + ">";
-      } else {
-        target += "<"+ splitTag + " class=\"" + oddClass + "\">" + s + "</" + splitTag + ">";
-      }
+    content.split(separator).forEach((e) => {
+      target += "<"+ splitTag + ((i%2 == 0)? evenAttr: oddAttr) + ">" + e + "</" + splitTag + ">";
+      i++;
     });
     return target;
   }

@@ -1,6 +1,6 @@
 # Pika JS
 
-## 0.1.5 2023-
+## 0.1.5 2023-06-21
 
 1. Update document
 2. Remove `CalcMinMain` to `Pikajs.calcMinMain`
