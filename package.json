@@ -1,10 +1,10 @@
 {
   "name": "@leonardwoo/pika-js",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A function toolkit.",
   "main": "dist/pika.min.js",
   "scripts": {
-    "compress": "terser src/pika.js src/index.js -o dist/pika.min.js -c -m --comments --source-map"
+    "compress": "terser src/pika.js -o dist/pika.min.js -c -m --comments --source-map"
   },
   "repository": {
     "type": "git",

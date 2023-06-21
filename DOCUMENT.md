@@ -1,6 +1,61 @@
 # Pika JS document
 
-## `PikaJS`
+## `Pikajs`
+
+### `calcMinMain`
+
+Calculate `min-height` and fill it in the style of the `main`, and ensure that main fills the entire page.
+
+```js
+window.addEventListener('load', (event) => {
+    Pikajs.calcMinMain();
+});
+```
+
+### `calcMinMain(parentNode)`
+
+Calculate `min-height` and fill it in the style of the `main`, and ensure that main fills the entire page.
+
+```js
+window.addEventListener('load', (event) => {
+    let app = document.getElementById('app');
+    Pikajs.calcMinMain(app);
+});
+```
+
+### `invalidInfo(inputId='',inputEId='', regex='', message='')`
+
+Add or remove a `p` tag with `inputEId` below the tag to display validation information.
+
+like this:
+
+```html
+<div>
+    <input type="text" id="{{inputId}}" />
+</div>
+<script>
+  document.getElementById('inputId').onchange = (event) => {
+    Pikajs.invalidInfo('{{inputId}}','{{inputEId}}', '{{regex}}', '{{message}}');
+    // when inputId is invalid with regex, add <p id="{{inputEId}}">{{message}}</p> under input.
+  }
+</script>
+```
+
+### `passQCalc(pass='')`
+
+Password Quality Calculator, if the value is greater than 80, it is a strong password.
+
+Async like this:
+
+```js
+async function pqcalc(pass='') {
+  return await Pikajs.passQCalc(pass);
+}
+
+pqcalc('P422w0Rd').then((result) => {
+    document.getElementById("rank").innerText = result;
+});
+```
 
 ### `getSelectorHeight(selector='')`
 
@@ -72,19 +127,19 @@ Get browser dark mode
 
 Return undefined is unsupported, true is dark mode, false is light mode
 
-### `splitAnimationElement(animEleText="")`
+### `splitContent(content = "", separator = "", splitTag = "")`
 
-Split animation element text
+Split content
 
 Convert like
 `<span class="animEles">test</span>`
 to
-`<span class="animEles"><span><em>t</em><em>e</em><em>s</em><em>t</em></span></span>`
+`<span class="animEles"><em>t</em><em>e</em><em>s</em><em>t</em></span>`
 
 ```javascript
 const animaEles = document.body.querySelectorAll(".animEles");
 animaEles.forEach((e) => {
-    Pikajs.splitAnimationElement(e.innerHTML)
+    Pikajs.splitContent(e.innerHTML, "", "em")
         .then(function (event) {
             e.innerHTML = event;
         })
@@ -94,56 +149,24 @@ animaEles.forEach((e) => {
 });
 ```
 
-## `CalcMinMain`
+### `splitContentWithParity(content = "", separator = "", splitTag = "", evenClass = "", oddClass = "")`
 
-Calculate `min-height` and fill it in the style of the `main`, and ensure that main fills the entire page.
+Split content with parity
 
-```js
-window.addEventListener('load', (event) => {
-    CalcMinMain();
-});
-```
+Convert like
+`<span class="animEles">test</span>`
+to
+`<span class="anim-eles"><em class="even">t</em><em class="odd">e</em><em class="even">s</em><em class="odd">t</em></span>`
 
-## `CalcMinMain(parentNode)`
-
-Calculate `min-height` and fill it in the style of the `main`, and ensure that main fills the entire page.
-
-```js
-window.addEventListener('load', (event) => {
-    let app = document.getElementById('app');
-    CalcMinMain(app);
-});
-```
-
-## `InvalidInfo(inputId='',inputEId='', regex='', message='')`
-
-Add or remove a `p` tag with `inputEId` below the tag to display validation information.
-
-like this:
-```html
-<div>
-    <input type="text" id="{{inputId}}" />
-</div>
-<script>
-  document.getElementById('inputId').onchange = (event) => {
-    InvalidInfo('{{inputId}}','{{inputEId}}', '{{regex}}', '{{message}}');
-    // when inputId is invalid with regex, add <p id="{{inputEId}}">{{message}}</p> under input.
-  }
-</script>
-```
-
-## `PassQCalc(pass='')`
-
-Password Quality Calculator, if the value is greater than 80, it is a strong password.
-
-Async like this:
-
-```js
-async function pqcalc(pass='') {
-  return await PassQCalc(pass);
-}
-
-pqcalc('P422w0Rd').then((result) => {
-    document.getElementById("rank").innerText = result;
+```javascript
+const animaEles = document.body.querySelectorAll(".animEles");
+animaEles.forEach((e) => {
+    Pikajs.splitContent(e.innerHTML, "", "em", "even", "odd")
+        .then(function (event) {
+            e.innerHTML = event;
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 });
 ```

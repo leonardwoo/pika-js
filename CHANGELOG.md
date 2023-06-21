@@ -1,5 +1,14 @@
 # Pika JS
 
+## 0.1.5 2023-06-21
+
+1. Update document
+2. Remove `CalcMinMain` to `Pikajs.calcMinMain`
+3. Remove `InvalidInfo` to `Pikajs.invalidInfo`
+4. Remove `PassQCalc` to `Pikajs.passQCalc`
+5. Update `Pikajs.splitAnimationElement` to `Pikajs.splitContent`
+6. Add `Pikajs.splitContentWithParity`
+
 ## 0.1.4 2023-04-21
 
 1. Update document

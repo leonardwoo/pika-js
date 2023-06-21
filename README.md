@@ -18,7 +18,7 @@ A function toolkit.
 <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" />
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-<script src="https://cdn.jsdelivr.net/npm/@leonardwoo/pika-js/dist/pika.min.js" defer></script>
+<script async src="https://cdn.jsdelivr.net/npm/@leonardwoo/pika-js/dist/pika.min.js"></script>
 ```
 
 OR
@@ -27,7 +27,7 @@ OR
 <link rel="dns-prefetch" href="https://unpkg.com">
 <link rel="preconnect" href="https://unpkg.com" />
 <link rel="preconnect" href="https://unpkg.com" crossorigin />
-<script src="https://unpkg.com/@leonardwoo/pika-js/dist/pika.min.js" defer></script>
+<script async src="https://unpkg.com/@leonardwoo/pika-js/dist/pika.min.js"></script>
 ```
 
 ## Development Version
@@ -38,7 +38,7 @@ OR
 <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" />
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-<script src="https://cdn.jsdelivr.net/gh/leonardwoo/pika-js@dev/dist/pika.min.js" defer></script>
+<script async src="https://cdn.jsdelivr.net/gh/leonardwoo/pika-js@dev/dist/pika.min.js"></script>
 ```
 
 ## Document
