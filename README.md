@@ -1,7 +1,8 @@
 # Pika JS
 
-![GitHub](https://img.shields.io/github/license/leonardwoo/pika-js?style=flat-square)
-[![npm (tag)](https://img.shields.io/npm/v/@leonardwoo/pika-js/latest?style=flat-square)](https://www.npmjs.com/package/@leonardwoo/pika-js)
+[![GitHub](https://img.shields.io/github/license/leonardwoo/pika-js?style=flat-square)](https://github.com/leonardwoo/pika-js/blob/main/LICENSE)
+[![npm](https://img.shields.io/npm/dt/@leonardwoo/pika-js?style=flat-square)](https://srl.cx/fZlMml7f)
+[![npm (tag)](https://img.shields.io/npm/v/@leonardwoo/pika-js/latest?style=flat-square)](https://srl.cx/fZlMml7f)
 
 ## Introduction
 
