@@ -1,6 +1,6 @@
 {
   "name": "@leonardwoo/pika-js",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A function toolkit.",
   "main": "dist/pika.min.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "front-end",
     "web"
   ],
-  "dependencies": {
+  "devDependencies": {
     "terser": "^5.16.1"
   }
 }

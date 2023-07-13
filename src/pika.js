@@ -25,7 +25,7 @@ class Pikajs {
    * Automatic calculator main tag min-height on screen
    */
   static calcMinMain() {
-    calcMinMain(document);
+    this.calcMinMain(document);
   }
 
   /**
@@ -34,9 +34,9 @@ class Pikajs {
    * @param parentNode parent node
    */
   static calcMinMain(parentNode) {
-    let headerHeight = getSelectorHeight(parentNode, 'header');
-    let selectionHeight = hasSelectionHeight(parentNode);
-    let footerHeight = selectionHeight ? 0 : getSelectorHeight(parentNode, 'footer');
+    let headerHeight = this.getFirstSelectorHeight(parentNode, 'header');
+    let selectionHeight = this.hasSelectorHeight(parentNode);
+    let footerHeight = selectionHeight ? 0 : this.hasSelectorHeight(parentNode, 'footer');
     let main = parentNode.querySelector('main');
     main.style.setProperty('min-height', 'calc(100vh - ' + (headerHeight + footerHeight) + 'px)');
   }
@@ -95,68 +95,47 @@ class Pikajs {
   }
 
   /**
-   * Get element selector height
+   * Get first selector height
    *
    * @param selector element selector
    * @returns {number} height
    */
-  static getSelectorHeight(selector) {
-    return getSelectorHeight(document, selector);
+  static getFirstSelectorHeight(selector) {
+    return this.getFirstSelectorHeight(document, selector);
   }
 
   /**
-   * Get element selector height under parent node
+   * Get first selector height under parent node
    *
    * @param parentNode parent node
    * @param selector element selector
-   * @returns {number} height, if selector height less then 0 return 0
+   * @returns {number} height, if selector height less than 0 return 0
    */
-  static getSelectorHeight(parentNode, selector) {
-    const s = parentNode.querySelector(selector);
+  static getFirstSelectorHeight(parentNode, selector) {
+    const s = parentNode.querySelectorAll(selector)[0];
     const sh = this._height(s);
     return (sh < 0 ? 0 : sh);
   }
 
   /**
-   * Has section tag
+   * Has first selector
    *
-   * @returns {boolean} true if find last section tag
+   * @param selector element selector
+   * @returns {boolean} true, if found selector
    */
-  static hasSelectionHeight() {
-    return this.hasSelectionHeight(document)
+  static hasSelectorHeight(selector) {
+    return this.getFirstSelectorHeight(selector) > 0;
   }
 
   /**
-   * Has section tag under parent node
+   * Has first selector under parent node
    *
    * @param parentNode parent node
-   * @returns {boolean} true if find last section tag
+   * @param selector element selector
+   * @returns {boolean} true if found selector
    */
-  static hasSelectionHeight(parentNode) {
-    const e = parentNode.getElementsByTagName("section")[0];
-    const eh = this._height(e);
-    return !(eh < 0);
-  }
-
-  /**
-   * Has article tag
-   *
-   * @returns {boolean} true if find last article tag
-   */
-  static hasArticleHeight() {
-    return this.hasArticleHeight(document)
-  }
-
-  /**
-   * Has article tag under parent node
-   *
-   * @param parentNode parent node
-   * @returns {boolean} true if find last article tag
-   */
-  static hasArticleHeight(parentNode) {
-    const e = parentNode.getElementsByTagName("article")[0];
-    const eh = this._height(e);
-    return !(eh < 0);
+  static hasSelectorHeight(parentNode, selector) {
+    return this.getFirstSelectorHeight(parentNode, selector) > 0;
   }
 
   /**

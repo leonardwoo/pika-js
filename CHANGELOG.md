@@ -1,5 +1,11 @@
 # Pika JS
 
+## 0.1.6 2023-
+
+1. Rename `Pikajs.getSelectorHeight` to `Pikajs.getFirstSelectorHeight`
+2. Rename `Pikajs.hasSelectionHeight` to `Pikajs.hasSelectorHeight`
+3. Update document
+
 ## 0.1.5 2023-06-21
 
 1. Update document

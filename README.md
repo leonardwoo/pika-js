@@ -6,29 +6,15 @@
 
 ## Introduction
 
-A function toolkit.
+A JS function toolkit
 
-## CDN
-
-- [jsDelivr](https://www.jsdelivr.com/package/npm/@leonardwoo/pika-js)
-- [unpkg](https://unpkg.com/@leonardwoo/pika-js)
-
-## Browser Use
+## Used
 
 ```html
 <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" />
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 <script async src="https://cdn.jsdelivr.net/npm/@leonardwoo/pika-js/dist/pika.min.js"></script>
-```
-
-OR
-
-```html
-<link rel="dns-prefetch" href="https://unpkg.com">
-<link rel="preconnect" href="https://unpkg.com" />
-<link rel="preconnect" href="https://unpkg.com" crossorigin />
-<script async src="https://unpkg.com/@leonardwoo/pika-js/dist/pika.min.js"></script>
 ```
 
 ## Development Version

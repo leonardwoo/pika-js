@@ -1,5 +1,12 @@
 # Pika JS document
 
+## Build
+
+```
+npm install
+npm run compress
+```
+
 ## `Pikajs`
 
 ### `calcMinMain`
@@ -57,21 +64,21 @@ pqcalc('P422w0Rd').then((result) => {
 });
 ```
 
-### `getSelectorHeight(selector='')`
+### `getFirstSelectorHeight(selector)`
 
-Get element selector height
+Get first selector height
 
-### `getSelectorHeight(parentNode,selector='')`
+### `getFirstSelectorHeight(parentNode,selector)`
 
-Get element selector height under parent node
+Get first selector height under parent node
 
-### `hasSelectionHeight()`
+### `hasSelectorHeight(selector)`
 
-Has section tag
+Has first selector
 
-### `hasSelectionHeight(parentNode)`
+### `hasSelectorHeight(parentNode, selector)`
 
-Has section tag under parent node
+Has first selector under parent node
 
 ### `isPassword(pass="")`
 
