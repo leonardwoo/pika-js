@@ -78,17 +78,17 @@ class Pikajs {
     let rankScore = 0;
 
     rankScore += (pass.length > 8) ? 4 : 0;
-    rankScore += (pass.length - checkChar(pass, /[a-z]/g)) * 2;
-    rankScore += (pass.length - checkChar(pass, /[A-Z]/g)) * 3;
-    rankScore += (pass.length - checkChar(pass, /[0-9]/g)) * 2;
-    rankScore += checkChar(pass, /((?=["!\\\"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~"])[^A-Za-z0-9])/g) * 6;
+    rankScore += (pass.length - this.checkChar(pass, /[a-z]/g)) * 2;
+    rankScore += (pass.length - this.checkChar(pass, /[A-Z]/g)) * 3;
+    rankScore += (pass.length - this.checkChar(pass, /[0-9]/g)) * 2;
+    rankScore += this.checkChar(pass, /((?=["!\\\"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~"])[^A-Za-z0-9])/g) * 6;
 
-    rankScore -= checkChar(pass, /[A-Z]{3,}/g) * 2;
-    rankScore -= checkChar(pass, /[a-z]{3,}/g) * 2;
-    rankScore -= checkChar(pass, /[0-9]{3,}/g) * 2;
-    rankScore -= checkChar(pass, /["!\\\"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~"]{3,}/g) * 2;
+    rankScore -= this.checkChar(pass, /[A-Z]{3,}/g) * 2;
+    rankScore -= this.checkChar(pass, /[a-z]{3,}/g) * 2;
+    rankScore -= this.checkChar(pass, /[0-9]{3,}/g) * 2;
+    rankScore -= this.checkChar(pass, /["!\\\"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~"]{3,}/g) * 2;
 
-    const rn = checkRepeat(pass);
+    const rn = this.checkRepeat(pass);
     rankScore -= rn * (rn - 1);
 
     return rankScore <= 0? 0: rankScore;
