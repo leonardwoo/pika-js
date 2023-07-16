@@ -1,14 +1,14 @@
 # Pika JS
 
 [![GitHub](https://img.shields.io/github/license/leonardwoo/pika-js?style=flat-square)](https://github.com/leonardwoo/pika-js/blob/main/LICENSE)
+[![npm (tag)](https://img.shields.io/npm/v/@leonardwoo/pika-js?style=flat-square)](https://srl.cx/fZlMml7f)
 [![npm](https://img.shields.io/npm/dt/@leonardwoo/pika-js?style=flat-square)](https://srl.cx/fZlMml7f)
-[![npm (tag)](https://img.shields.io/npm/v/@leonardwoo/pika-js/latest?style=flat-square)](https://srl.cx/fZlMml7f)
 
-## Introduction
-
-A JS function toolkit
+PikaJS is a javascript toolkit that includes DOM processing, string validation, etc.
 
 ## Used
+
+### Release Version
 
 ```html
 <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
@@ -17,9 +17,7 @@ A JS function toolkit
 <script async src="https://cdn.jsdelivr.net/npm/@leonardwoo/pika-js/dist/pika.min.js"></script>
 ```
 
-## Development Version
-
-**Development version only for testing**
+### Development Version
 
 ```html
 <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">

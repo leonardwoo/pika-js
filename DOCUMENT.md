@@ -19,16 +19,30 @@ window.addEventListener('load', (event) => {
 });
 ```
 
-### `calcMinMain(parentNode)`
+Result:
+```html
+<main style="min-height: calc(100vh - 26px)">
+</main>
+```
+`26px` is `headerHeight + footerHeight`, if include `selection` tag, `footerHeight` is 0.
+
+### `calcMinMainWithParent(parentNode)`
 
 Calculate `min-height` and fill it in the style of the `main`, and ensure that main fills the entire page.
 
 ```js
 window.addEventListener('load', (event) => {
     let app = document.getElementById('app');
-    Pikajs.calcMinMain(app);
+    Pikajs.calcMinMainWithParent(app);
 });
 ```
+
+Result:
+```html
+<main style="min-height: calc(100vh - 26px)">
+</main>
+```
+`26px` is `headerHeight + footerHeight`, if include `selection` tag, `footerHeight` is 0.
 
 ### `invalidInfo(inputId='',inputEId='', regex='', message='')`
 
@@ -68,7 +82,7 @@ pqcalc('P422w0Rd').then((result) => {
 
 Get first selector height
 
-### `getFirstSelectorHeight(parentNode,selector)`
+### `getFirstSelectorHeightWithParent(parentNode,selector)`
 
 Get first selector height under parent node
 
@@ -76,7 +90,7 @@ Get first selector height under parent node
 
 Has first selector
 
-### `hasSelectorHeight(parentNode, selector)`
+### `hasSelectorHeightWithParent(parentNode, selector)`
 
 Has first selector under parent node
 
@@ -84,9 +98,9 @@ Has first selector under parent node
 
 Is password (only ASCII printable characters without space)
 
-### `checkRepeat(text="")`
+### `checkConsRepeats(text="")`
 
-Check repeat character
+Check for consecutive repeated characters
 
 ### `checkChar(text="", regex="")`
 
@@ -120,6 +134,14 @@ Decode Base64 to byte buffer
 
 Encode byte buffer to Base64
 
+### `base64Encode(data="")`
+
+Base64 Encoder
+
+### `base64Decode(data="")`
+
+Base64 Decoder
+
 ### `stringToArrayBuffer(str)`
 
 Convert string to byte buffer
@@ -130,7 +152,7 @@ Convert byte buffer to string
 
 ### `getDarkMode()`
 
-Get browser dark mode
+Get browser dark mode status
 
 Return undefined is unsupported, true is dark mode, false is light mode
 
@@ -147,16 +169,16 @@ to
 const animaEles = document.body.querySelectorAll(".animEles");
 animaEles.forEach((e) => {
     Pikajs.splitContent(e.innerHTML, "", "em")
-        .then(function (event) {
+        .then((event) => {
             e.innerHTML = event;
         })
-        .catch(function (error) {
+        .catch((error) => {
             console.log(error);
         });
 });
 ```
 
-### `splitContentWithParity(content = "", separator = "", splitTag = "", evenClass = "", oddClass = "")`
+### `splitContentWithParity(content = "", separator = "", splitTag = "", oddClass = "", evenClass = "")`
 
 Split content with parity
 
@@ -168,11 +190,11 @@ to
 ```javascript
 const animaEles = document.body.querySelectorAll(".animEles");
 animaEles.forEach((e) => {
-    Pikajs.splitContent(e.innerHTML, "", "em", "even", "odd")
-        .then(function (event) {
+    Pikajs.splitContentWithParity(e.innerHTML, "", "em", "odd", "even")
+        .then((event) => {
             e.innerHTML = event;
         })
-        .catch(function (error) {
+        .catch((error) => {
             console.log(error);
         });
 });

@@ -25,7 +25,7 @@ class Pikajs {
    * Automatic calculator main tag min-height on screen
    */
   static calcMinMain() {
-    this.calcMinMain(document);
+    this.calcMinMainWithParent(document);
   }
 
   /**
@@ -33,12 +33,12 @@ class Pikajs {
    *
    * @param parentNode parent node
    */
-  static calcMinMain(parentNode) {
-    let headerHeight = this.getFirstSelectorHeight(parentNode, 'header');
-    let selectionHeight = this.hasSelectorHeight(parentNode);
-    let footerHeight = selectionHeight ? 0 : this.hasSelectorHeight(parentNode, 'footer');
-    let main = parentNode.querySelector('main');
-    main.style.setProperty('min-height', 'calc(100vh - ' + (headerHeight + footerHeight) + 'px)');
+  static calcMinMainWithParent(parentNode) {
+    let headerHeight = this.getFirstSelectorHeightWithParent(parentNode, 'header');
+    let selectionHeight = this.hasSelectorHeightWithParent(parentNode, 'selection');
+    let footerHeight = selectionHeight ? 0 : this.getFirstSelectorHeightWithParent(parentNode, 'footer');
+    let mainTag = parentNode.getElementsByTagName('main')[0];
+    mainTag.style.setProperty('min-height', 'calc(100vh - ' + (headerHeight + footerHeight) + 'px)');
   }
 
   /**
@@ -71,27 +71,27 @@ class Pikajs {
   /**
    * Calculator password quality
    *
-   * @param {string} [pass=''] password text
+   * @param {string} [pass=""] password text
    * @returns {number} quality score
    */
-  static passQCalc(pass = '') {
+  static passQCalc(pass = "") {
     let rankScore = 0;
 
     rankScore += (pass.length > 8) ? 4 : 0;
-    rankScore += (pass.length - this.checkChar(pass, /[a-z]/g)) * 2;
-    rankScore += (pass.length - this.checkChar(pass, /[A-Z]/g)) * 3;
-    rankScore += (pass.length - this.checkChar(pass, /[0-9]/g)) * 2;
-    rankScore += this.checkChar(pass, /((?=["!\\\"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~"])[^A-Za-z0-9])/g) * 6;
+    rankScore += (pass.length - this.checkChar(pass, /\p{Lu}/gu)) * 3;
+    rankScore += (pass.length - this.checkChar(pass, /\p{Ll}/gu)) * 2;
+    rankScore += (pass.length - this.checkChar(pass, /\d/gu)) * 2;
+    rankScore += this.checkChar(pass, /((?=\p{P})[^\p{Lu}\p{Ll}\d])/gu) * 6;
 
-    rankScore -= this.checkChar(pass, /[A-Z]{3,}/g) * 2;
-    rankScore -= this.checkChar(pass, /[a-z]{3,}/g) * 2;
-    rankScore -= this.checkChar(pass, /[0-9]{3,}/g) * 2;
-    rankScore -= this.checkChar(pass, /["!\\\"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~"]{3,}/g) * 2;
+    rankScore -= this.checkChar(pass, /\p{Lu}{3,}/gu) * 2;
+    rankScore -= this.checkChar(pass, /\p{Ll}{3,}/gu) * 2;
+    rankScore -= this.checkChar(pass, /\d{3,}/gu) * 2;
+    rankScore -= this.checkChar(pass, /\p{P}{3,}/gu) * 2;
 
-    const rn = this.checkRepeat(pass);
+    const rn = this.checkConsRepeats(pass);
     rankScore -= rn * (rn - 1);
 
-    return rankScore <= 0? 0: rankScore;
+    return (rankScore <= 0)? 0: rankScore;
   }
 
   /**
@@ -101,7 +101,7 @@ class Pikajs {
    * @returns {number} height
    */
   static getFirstSelectorHeight(selector) {
-    return this.getFirstSelectorHeight(document, selector);
+    return this.getFirstSelectorHeightWithParent(document, selector);
   }
 
   /**
@@ -111,7 +111,7 @@ class Pikajs {
    * @param selector element selector
    * @returns {number} height, if selector height less than 0 return 0
    */
-  static getFirstSelectorHeight(parentNode, selector) {
+  static getFirstSelectorHeightWithParent(parentNode, selector) {
     const s = parentNode.querySelectorAll(selector)[0];
     const sh = this._height(s);
     return (sh < 0 ? 0 : sh);
@@ -134,8 +134,8 @@ class Pikajs {
    * @param selector element selector
    * @returns {boolean} true if found selector
    */
-  static hasSelectorHeight(parentNode, selector) {
-    return this.getFirstSelectorHeight(parentNode, selector) > 0;
+  static hasSelectorHeightWithParent(parentNode, selector) {
+    return this.getFirstSelectorHeightWithParent(parentNode, selector) > 0;
   }
 
   /**
@@ -152,12 +152,12 @@ class Pikajs {
   }
 
   /**
-   * Check repeat character
+   * Check for consecutive repeated characters
    *
    * @param {string} [text=""] text
    * @returns {number} repeat character number
    */
-  static checkRepeat(text = "") {
+  static checkConsRepeats(text = "") {
     let count = 0;
     for (let i = 0; i < text.length - 1; i++) {
       if (text[i] === text[i + 1]) {
@@ -171,10 +171,10 @@ class Pikajs {
    * Check character with regex
    *
    * @param {string} [text=""] text
-   * @param {string} [regex=""] regex
+   * @param {RegExp} [regex] regex
    * @returns {number} If it is greater than 0, it is the number of regular strings
    */
-  static checkChar(text = "", regex = "") {
+  static checkChar(text = "", regex) {
     if (text.search(regex) >= 0) {
       return text.match(regex).length;
     }
@@ -241,9 +241,6 @@ class Pikajs {
     return regex.match(text).length > 0;
   }
 
-  // window.btoa(""); // encode a string
-  // window.atob(""); // decode the string
-
   /**
    * Decode Base64 to byte buffer
    *
@@ -251,19 +248,37 @@ class Pikajs {
    * @returns {ArrayBufferLike} byte buffer
    */
   static base64ToArrayBuffer(base64) {
-    const binaryString = window.atob(base64);
-    return this.stringToArrayBuffer(binaryString);
+    return this.stringToArrayBuffer(this.base64Decode(base64));
   }
 
   /**
    * Encode byte buffer to Base64
    *
-   * @param arraybuffer byte buffer
+   * @param {ArrayBufferLike} arraybuffer byte buffer
    * @returns {string} base64 text
    */
   static arrayBufferToBase64(arraybuffer) {
-    const binary = this.arrayBufferToString(arraybuffer);
-    return window.btoa(binary);
+    return this.base64Encode(this.arrayBufferToString(arraybuffer));
+  }
+
+  /**
+   * Base64 Encoder
+   *
+   * @param {string} data text
+   * @returns {string} base64 text
+   */
+  static base64Encode(data = "") {
+    return window.btoa(data);
+  }
+
+  /**
+   * Base64 Decoder
+   *
+   * @param {string} data base64 text
+   * @returns {string} text
+   */
+  static base64Decode(data) {
+    return window.atob(data);
   }
 
   /**
@@ -283,7 +298,7 @@ class Pikajs {
   /**
    * Convert byte buffer to string
    *
-   * @param arraybuffer byte buffer
+   * @param {ArrayBufferLike} arraybuffer byte buffer
    * @returns {string} string
    */
   static arrayBufferToString(arraybuffer) {
@@ -291,9 +306,9 @@ class Pikajs {
   }
 
   /**
-   * Get browser dark mode
+   * Get browser dark mode status
    *
-   * @returns {undefined} undefined is unsupported, true is dark mode, false is light mode
+   * @returns {boolean} undefined is unsupported, true is dark mode, false is light mode
    */
   static getDarkMode() {
     let darkMode = undefined;
@@ -317,14 +332,18 @@ class Pikajs {
    * @returns {string} target html with splitTag tags
    */
   static async splitContent(content = "", separator = "", splitTag = "") {
-    let target = "";
-    if (splitTag.length < 1) {
+    if (splitTag === "") {
       return content;
     }
-    content.split(separator).forEach((s) => {
-      target += "<"+ splitTag + ">" + s + "</" + splitTag + ">";
-    });
-    return target;
+
+    let targetTag = document.createElement("span");
+    const cse = content.split(separator);
+    for(let i = 0; i < cse.length; i++) {
+      let subtag = document.createElement(splitTag);
+      subtag.innerText = cse[i];
+      targetTag.appendChild(subtag);
+    }
+    return targetTag.innerHTML;
   }
 
   /**
@@ -335,25 +354,34 @@ class Pikajs {
    * to
    * @code <span class="anim-eles"><em class="even">t</em><em class="odd">e</em><em class="even">s</em><em class="odd">t</em></span>
    * 
-   * @param {string} [content=""] element content
+   * @param {string} [content = ""] element content
    * @param {string} [separator=""] content separator char
    * @param {string} [splitTag=""] split tag name
-   * @param {string} [evenClass=""] even tag class name
    * @param {string} [oddClass=""] odd tag class name
+   * @param {string} [evenClass=""] even tag class name
    * @returns {string} target html with splitTag tags
    */
-  static async splitContentWithParity(content = "", separator = "", splitTag = "", evenClass = "", oddClass = "") {
-    let target = "";
-    if (splitTag == "") {
+  static async splitContentWithParity(content = "", separator = "", splitTag = "", oddClass = "", evenClass = "") {
+    if (splitTag === "") {
       return content;
     }
-    const evenAttr = (evenClass == "")? "": " class=\"" + evenClass + "\"";
-    const oddAttr = (oddClass == "")? "": " class=\"" + oddClass + "\"";
-    var i = 0;
-    content.split(separator).forEach((e) => {
-      target += "<"+ splitTag + ((i%2 == 0)? evenAttr: oddAttr) + ">" + e + "</" + splitTag + ">";
-      i++;
-    });
-    return target;
+
+    if (oddClass === "" && evenClass === "") {
+      return this.splitContent(content, separator, splitTag);
+    }
+
+    let targetTag = document.createElement("span");
+    const cse = content.split(separator);
+    for(let i = 0; i < cse.length; i++) {
+      let subtag = document.createElement(splitTag);
+      if (i%2 === 0) {
+        subtag.classList.add(evenClass);
+      } else {
+        subtag.classList.add(oddClass);
+      }
+      subtag.innerText = cse[i];
+      targetTag.appendChild(subtag);
+    }
+    return targetTag.innerHTML;
   }
 }
