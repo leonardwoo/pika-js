@@ -45,16 +45,17 @@ class Pikajs {
    * Add message under the input tag with regex
    *
    * @param {string} [inputId=''] input tag id
+   * @param {string} [inputETag=''] input error message tag when not found error id
    * @param {string} [inputEId=''] input error message id with p tag
    * @param {string} [regex=''] regex
    * @param {string} [message=''] message
    */
-  static invalidInfo(inputId = '', inputEId = '', regex = '', message = '') {
+  static invalidInfo(inputId = '', inputETag = '', inputEId = '', regex = '', message = '') {
     const validInput = document.getElementById(inputId);
     let inputEi = document.getElementById(inputEId);
-    if (!regex.test(validInput.value)) {
+    if (!new RegExp(regex).test(validInput.value)) {
       if (inputEi == null) {
-        inputEi = document.createElement('p');
+        inputEi = document.createElement(inputETag);
         inputEi.setAttribute('id', inputEId);
         inputEi.innerText = message;
         validInput.parentNode.appendChild(inputEi);
@@ -141,7 +142,7 @@ class Pikajs {
   /**
    * Is password (only ASCII printable characters without space)
    *
-   * @param {string} [pass=""] password text, length is bewteen 8 to 20
+   * @param {string} [pass=""] password text, length is between 8 and 20
    * @returns {boolean} true if text is password
    */
   static isPassword(pass = "") {

@@ -6,6 +6,7 @@
 . Rename `Pikajs.calcMinMain(parentNode)` to `Pikajs.calcMinMainWithParent(parentNode)`
 . Rename `Pikajs.checkRepeat` to `Pikajs.checkConsRepeats`
 . Add `Pikajs.base64Encode` and `Pikajs.base64Decode`
+. Update `Pikajs.invalidInfo` to  `Pikajs.invalidInfo(inputId, inputETag, inputEId, regex, message)`
 . Update document
 . Optimize code
 
