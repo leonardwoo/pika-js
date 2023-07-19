@@ -46,26 +46,35 @@ class Pikajs {
    *
    * @param {string} [inputId=''] input tag id
    * @param {string} [inputETag=''] input error message tag when not found error id
-   * @param {string} [inputEId=''] input error message id with p tag
+   * @param {string} [inputEId=''] input error message id
    * @param {string} [regex=''] regex
    * @param {string} [message=''] message
    */
   static invalidInfo(inputId = '', inputETag = '', inputEId = '', regex = '', message = '') {
     const validInput = document.getElementById(inputId);
+    const flag = !new RegExp(regex).test(validInput.value);
     let inputEi = document.getElementById(inputEId);
-    if (!new RegExp(regex).test(validInput.value)) {
-      if (inputEi == null) {
-        inputEi = document.createElement(inputETag);
-        inputEi.setAttribute('id', inputEId);
-        inputEi.innerText = message;
-        validInput.parentNode.appendChild(inputEi);
-      } else {
-        inputEi.innerText = message;
-      }
+    if (inputEi == null) {
+      inputEi = document.createElement(inputETag);
+      inputEi.setAttribute('id', inputEId);
+    }
+    this.invalidChild(validInput.parentNode, flag, inputEi, message);
+  }
+
+  /**
+   * Invalid child message
+   *
+   * @param {HTMLElement} parentNode valid parent element
+   * @param {boolean} flag child flag
+   * @param {HTMLElement} errorNode error element
+   * @param {string} errrorMessage error message 
+   */
+  static invalidChild(parentNode, flag = false, errorNode, errrorMessage = '') {
+    if (flag) {
+      errorNode.innerText = errrorMessage;
+      parentNode.appendChild(errorNode);
     } else {
-      if (inputEi != null) {
-        validInput.parentNode.removeChild(inputEi);
-      }
+      parentNode.removeChild(errorNode);
     }
   }
 
