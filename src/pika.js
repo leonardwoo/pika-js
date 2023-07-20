@@ -25,7 +25,7 @@ class Pikajs {
    * Automatic calculator main tag min-height on screen
    */
   static calcMinMain() {
-    calcMinMain(document);
+    this.calcMinMainWithParent(document);
   }
 
   /**
@@ -33,155 +33,115 @@ class Pikajs {
    *
    * @param parentNode parent node
    */
-  static calcMinMain(parentNode) {
-    let headerHeight = getSelectorHeight(parentNode, 'header');
-    let selectionHeight = hasSelectionHeight(parentNode);
-    let footerHeight = selectionHeight ? 0 : getSelectorHeight(parentNode, 'footer');
-    let main = parentNode.querySelector('main');
-    main.style.setProperty('min-height', 'calc(100vh - ' + (headerHeight + footerHeight) + 'px)');
-  }
-
-  /**
-   * Add message under the input tag with regex
-   *
-   * @param {string} [inputId=''] input tag id
-   * @param {string} [inputEId=''] input error message id with p tag
-   * @param {string} [regex=''] regex
-   * @param {string} [message=''] message
-   */
-  static invalidInfo(inputId = '', inputEId = '', regex = '', message = '') {
-    const validInput = document.getElementById(inputId);
-    let inputEi = document.getElementById(inputEId);
-    if (!regex.test(validInput.value)) {
-      if (inputEi == null) {
-        inputEi = document.createElement('p');
-        inputEi.setAttribute('id', inputEId);
-        inputEi.innerText = message;
-        validInput.parentNode.appendChild(inputEi);
-      } else {
-        inputEi.innerText = message;
-      }
-    } else {
-      if (inputEi != null) {
-        validInput.parentNode.removeChild(inputEi);
-      }
-    }
+  static calcMinMainWithParent(parentNode) {
+    let headerHeight = this.getFirstSelectorHeightWithParent(parentNode, 'header');
+    let selectionHeight = this.hasSelectorHeightWithParent(parentNode, 'selection');
+    let footerHeight = selectionHeight ? 0 : this.getFirstSelectorHeightWithParent(parentNode, 'footer');
+    let mainTag = parentNode.getElementsByTagName('main')[0];
+    mainTag.style.setProperty('min-height', 'calc(100vh - ' + (headerHeight + footerHeight) + 'px)');
   }
 
   /**
    * Calculator password quality
    *
-   * @param {string} [pass=''] password text
+   * @param {string} [pass=""] password text
    * @returns {number} quality score
    */
-  static passQCalc(pass = '') {
+  static passQCalc(pass = "") {
+    const strLength = pass.length;
     let rankScore = 0;
 
-    rankScore += (pass.length > 8) ? 4 : 0;
-    rankScore += (pass.length - checkChar(pass, /[a-z]/g)) * 2;
-    rankScore += (pass.length - checkChar(pass, /[A-Z]/g)) * 3;
-    rankScore += (pass.length - checkChar(pass, /[0-9]/g)) * 2;
-    rankScore += checkChar(pass, /((?=["!\\\"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~"])[^A-Za-z0-9])/g) * 6;
+    rankScore += (strLength > 8) ? 4 : 0;
+    rankScore += (strLength - this.checkChar(pass, /\p{Lu}/gu)) * 3;
+    rankScore += (strLength - this.checkChar(pass, /\p{Ll}/gu)) * 2;
+    rankScore += (strLength - this.checkChar(pass, /\d/gu)) * 2;
+    rankScore += this.checkChar(pass, /((?=\p{P})[^\p{Lu}\p{Ll}\d])/gu) * 6;
 
-    rankScore -= checkChar(pass, /[A-Z]{3,}/g) * 2;
-    rankScore -= checkChar(pass, /[a-z]{3,}/g) * 2;
-    rankScore -= checkChar(pass, /[0-9]{3,}/g) * 2;
-    rankScore -= checkChar(pass, /["!\\\"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~"]{3,}/g) * 2;
+    rankScore -= this.checkChar(pass, /\p{Lu}{3,}/gu) * 2;
+    rankScore -= this.checkChar(pass, /\p{Ll}{3,}/gu) * 2;
+    rankScore -= this.checkChar(pass, /\d{3,}/gu) * 2;
+    rankScore -= this.checkChar(pass, /\p{P}{3,}/gu) * 2;
 
-    const rn = checkRepeat(pass);
+    const rn = this.checkConsRepeats(pass);
     rankScore -= rn * (rn - 1);
 
-    return rankScore <= 0? 0: rankScore;
+    return (rankScore <= 0)? 0: rankScore;
   }
 
   /**
-   * Get element selector height
+   * Get first selector height
    *
    * @param selector element selector
    * @returns {number} height
    */
-  static getSelectorHeight(selector) {
-    return getSelectorHeight(document, selector);
+  static getFirstSelectorHeight(selector) {
+    return this.getFirstSelectorHeightWithParent(document, selector);
   }
 
   /**
-   * Get element selector height under parent node
+   * Get first selector height under parent node
    *
    * @param parentNode parent node
    * @param selector element selector
-   * @returns {number} height, if selector height less then 0 return 0
+   * @returns {number} height, if selector height less than 0 return 0
    */
-  static getSelectorHeight(parentNode, selector) {
-    const s = parentNode.querySelector(selector);
+  static getFirstSelectorHeightWithParent(parentNode, selector) {
+    const s = parentNode.querySelectorAll(selector)[0];
     const sh = this._height(s);
     return (sh < 0 ? 0 : sh);
   }
 
   /**
-   * Has section tag
+   * Has first selector
    *
-   * @returns {boolean} true if find last section tag
+   * @param selector element selector
+   * @returns {boolean} true, if found selector
    */
-  static hasSelectionHeight() {
-    return this.hasSelectionHeight(document)
+  static hasSelectorHeight(selector) {
+    return this.getFirstSelectorHeight(selector) > 0;
   }
 
   /**
-   * Has section tag under parent node
-   *
-   * @param parentNode parent node
-   * @returns {boolean} true if find last section tag
-   */
-  static hasSelectionHeight(parentNode) {
-    const e = parentNode.getElementsByTagName("section")[0];
-    const eh = this._height(e);
-    return !(eh < 0);
-  }
-
-  /**
-   * Has article tag
-   *
-   * @returns {boolean} true if find last article tag
-   */
-  static hasArticleHeight() {
-    return this.hasArticleHeight(document)
-  }
-
-  /**
-   * Has article tag under parent node
+   * Has first selector under parent node
    *
    * @param parentNode parent node
-   * @returns {boolean} true if find last article tag
+   * @param selector element selector
+   * @returns {boolean} true if found selector
    */
-  static hasArticleHeight(parentNode) {
-    const e = parentNode.getElementsByTagName("article")[0];
-    const eh = this._height(e);
-    return !(eh < 0);
+  static hasSelectorHeightWithParent(parentNode, selector) {
+    return this.getFirstSelectorHeightWithParent(parentNode, selector) > 0;
   }
 
   /**
-   * Is password (only ASCII printable characters without space)
-   *
-   * @param {string} [pass=""] password text, length is bewteen 8 to 20
-   * @returns {boolean} true if text is password
-   */
-  static isPassword(pass = "") {
-    // ASCII printable characters, letters, digits, punctuation marks, and a few miscellaneous symbols.
-    // But without space.
-    const regex = /^[\x21-\x7E]{8,20}$/g;
-    return regex.test(pass);
-  }
-
-  /**
-   * Check repeat character
+   * Check for consecutive repeated characters
    *
    * @param {string} [text=""] text
    * @returns {number} repeat character number
    */
-  static checkRepeat(text = "") {
+  static checkConsRepeats(text = "") {
     let count = 0;
     for (let i = 0; i < text.length - 1; i++) {
-      if (text[i] === text[i + 1]) {
+      const currentChar = text[i];
+      const nextChar = text[i + 1]
+      if (currentChar === nextChar) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  /**
+   * Check for consecutive repeated characters with ignore case
+   *
+   * @param {string} [text=""] text
+   * @returns {number} repeat character number
+   */
+  static checkConsRepeatsWithIgnoreCase(text = "") {
+    let count = 0;
+    for (let i = 0; i < text.length - 1; i++) {
+      const currentChar = text[i];
+      const nextChar = text[i + 1]
+      if (currentChar.toLowerCase() === nextChar.toLowerCase()) {
         count++;
       }
     }
@@ -192,14 +152,27 @@ class Pikajs {
    * Check character with regex
    *
    * @param {string} [text=""] text
-   * @param {string} [regex=""] regex
+   * @param {RegExp} [regex] regex
    * @returns {number} If it is greater than 0, it is the number of regular strings
    */
-  static checkChar(text = "", regex = "") {
+  static checkChar(text = "", regex) {
     if (text.search(regex) >= 0) {
       return text.match(regex).length;
     }
     return 0;
+  }
+
+  /**
+   * Is password (only ASCII printable characters without space)
+   *
+   * @param {string} [pass=""] password text, length is between 8 and 20
+   * @returns {boolean} true if text is password
+   */
+  static isPassword(pass = "") {
+    // ASCII printable characters, letters, digits, punctuation marks, and a few miscellaneous symbols.
+    // But without space.
+    const regex = /^[\x21-\x7E]{8,20}$/g;
+    return regex.test(pass);
   }
 
   /**
@@ -262,9 +235,6 @@ class Pikajs {
     return regex.match(text).length > 0;
   }
 
-  // window.btoa(""); // encode a string
-  // window.atob(""); // decode the string
-
   /**
    * Decode Base64 to byte buffer
    *
@@ -272,19 +242,37 @@ class Pikajs {
    * @returns {ArrayBufferLike} byte buffer
    */
   static base64ToArrayBuffer(base64) {
-    const binaryString = window.atob(base64);
-    return this.stringToArrayBuffer(binaryString);
+    return this.stringToArrayBuffer(this.base64Decode(base64));
   }
 
   /**
    * Encode byte buffer to Base64
    *
-   * @param arraybuffer byte buffer
+   * @param {ArrayBufferLike} arraybuffer byte buffer
    * @returns {string} base64 text
    */
   static arrayBufferToBase64(arraybuffer) {
-    const binary = this.arrayBufferToString(arraybuffer);
-    return window.btoa(binary);
+    return this.base64Encode(this.arrayBufferToString(arraybuffer));
+  }
+
+  /**
+   * Base64 Encoder
+   *
+   * @param {string} data text
+   * @returns {string} base64 text
+   */
+  static base64Encode(data = "") {
+    return window.btoa(data);
+  }
+
+  /**
+   * Base64 Decoder
+   *
+   * @param {string} data base64 text
+   * @returns {string} text
+   */
+  static base64Decode(data) {
+    return window.atob(data);
   }
 
   /**
@@ -304,7 +292,7 @@ class Pikajs {
   /**
    * Convert byte buffer to string
    *
-   * @param arraybuffer byte buffer
+   * @param {ArrayBufferLike} arraybuffer byte buffer
    * @returns {string} string
    */
   static arrayBufferToString(arraybuffer) {
@@ -312,9 +300,9 @@ class Pikajs {
   }
 
   /**
-   * Get browser dark mode
+   * Get browser dark mode status
    *
-   * @returns {undefined} undefined is unsupported, true is dark mode, false is light mode
+   * @returns {boolean} undefined is unsupported, true is dark mode, false is light mode
    */
   static getDarkMode() {
     let darkMode = undefined;
@@ -338,14 +326,18 @@ class Pikajs {
    * @returns {string} target html with splitTag tags
    */
   static async splitContent(content = "", separator = "", splitTag = "") {
-    let target = "";
-    if (splitTag.length < 1) {
+    if (splitTag === "") {
       return content;
     }
-    content.split(separator).forEach((s) => {
-      target += "<"+ splitTag + ">" + s + "</" + splitTag + ">";
-    });
-    return target;
+
+    let targetTag = document.createElement("span");
+    const cse = content.split(separator);
+    for(let i = 0; i < cse.length; i++) {
+      let subtag = document.createElement(splitTag);
+      subtag.innerText = cse[i];
+      targetTag.appendChild(subtag);
+    }
+    return targetTag.innerHTML;
   }
 
   /**
@@ -356,25 +348,34 @@ class Pikajs {
    * to
    * @code <span class="anim-eles"><em class="even">t</em><em class="odd">e</em><em class="even">s</em><em class="odd">t</em></span>
    * 
-   * @param {string} [content=""] element content
+   * @param {string} [content = ""] element content
    * @param {string} [separator=""] content separator char
    * @param {string} [splitTag=""] split tag name
-   * @param {string} [evenClass=""] even tag class name
    * @param {string} [oddClass=""] odd tag class name
+   * @param {string} [evenClass=""] even tag class name
    * @returns {string} target html with splitTag tags
    */
-  static async splitContentWithParity(content = "", separator = "", splitTag = "", evenClass = "", oddClass = "") {
-    let target = "";
-    if (splitTag == "") {
+  static async splitContentWithParity(content = "", separator = "", splitTag = "", oddClass = "", evenClass = "") {
+    if (splitTag === "") {
       return content;
     }
-    const evenAttr = (evenClass == "")? "": " class=\"" + evenClass + "\"";
-    const oddAttr = (oddClass == "")? "": " class=\"" + oddClass + "\"";
-    var i = 0;
-    content.split(separator).forEach((e) => {
-      target += "<"+ splitTag + ((i%2 == 0)? evenAttr: oddAttr) + ">" + e + "</" + splitTag + ">";
-      i++;
-    });
-    return target;
+
+    if (oddClass === "" && evenClass === "") {
+      return this.splitContent(content, separator, splitTag);
+    }
+
+    let targetTag = document.createElement("span");
+    const cse = content.split(separator);
+    for(let i = 0; i < cse.length; i++) {
+      let subtag = document.createElement(splitTag);
+      if (i%2 === 0) {
+        subtag.classList.add(evenClass);
+      } else {
+        subtag.classList.add(oddClass);
+      }
+      subtag.innerText = cse[i];
+      targetTag.appendChild(subtag);
+    }
+    return targetTag.innerHTML;
   }
 }

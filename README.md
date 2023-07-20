@@ -1,18 +1,28 @@
-# Pika JS
+<p align="center">
+  <a href="https://github.com/leonardwoo/pika-js" target="_blank">
+    <img alt="PikaJS" src="https://projects.l6d.me/images/pika2.svg" width="150" />
+  </a>
+</p>
 
-![GitHub](https://img.shields.io/github/license/leonardwoo/pika-js?style=flat-square)
-[![npm (tag)](https://img.shields.io/npm/v/@leonardwoo/pika-js/latest?style=flat-square)](https://www.npmjs.com/package/@leonardwoo/pika-js)
+<p align="center">
+A javascript toolkit that includes DOM processing, string validation, etc.
+</p>
 
-## Introduction
+<p align="center">
+  <a href="https://github.com/leonardwoo/pika-js/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/leonardwoo/pika-js?style=flat-square" alt="License">
+  </a>
+  <a class="text-decoration-none" href="https://srl.cx/fZlMml7f">
+    <img src="https://img.shields.io/npm/v/@leonardwoo/pika-js?style=flat-square" alt="Latest Release">
+  </a>
+  <a class="text-decoration-none" href="https://srl.cx/fZlMml7f">
+    <img src="https://img.shields.io/npm/dt/@leonardwoo/pika-js?style=flat-square" alt="Total Downloads">
+  </a>
+</p>
 
-A function toolkit.
+## Used
 
-## CDN
-
-- [jsDelivr](https://www.jsdelivr.com/package/npm/@leonardwoo/pika-js)
-- [unpkg](https://unpkg.com/@leonardwoo/pika-js)
-
-## Browser Use
+### Release Version
 
 ```html
 <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
@@ -21,18 +31,7 @@ A function toolkit.
 <script async src="https://cdn.jsdelivr.net/npm/@leonardwoo/pika-js/dist/pika.min.js"></script>
 ```
 
-OR
-
-```html
-<link rel="dns-prefetch" href="https://unpkg.com">
-<link rel="preconnect" href="https://unpkg.com" />
-<link rel="preconnect" href="https://unpkg.com" crossorigin />
-<script async src="https://unpkg.com/@leonardwoo/pika-js/dist/pika.min.js"></script>
-```
-
-## Development Version
-
-**Development version only for testing**
+### Development Version
 
 ```html
 <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">

@@ -1,0 +1,45 @@
+= Pika JS
+
+== 0.1.6 2023-07-20
+. Rename `Pikajs.getSelectorHeight` to `Pikajs.getFirstSelectorHeight` and `Pikajs.getFirstSelectorHeightWithParent`
+. Rename `Pikajs.hasSelectionHeight` to `Pikajs.hasSelectorHeight` and `Pikajs.hasSelectorHeightWithParent`
+. Rename `Pikajs.calcMinMain(parentNode)` to `Pikajs.calcMinMainWithParent(parentNode)`
+. Rename `Pikajs.checkRepeat` to `Pikajs.checkConsRepeats`
+. Add `Pikajs.base64Encode` and `Pikajs.base64Decode`
+. Delete `Pikajs.invalidInfo`
+. Update document
+. Optimize code
+. Add project logo
+
+== 0.1.5 2023-06-21
+. Update document
+. Remove `CalcMinMain` to `Pikajs.calcMinMain`
+. Remove `InvalidInfo` to `Pikajs.invalidInfo`
+. Remove `PassQCalc` to `Pikajs.passQCalc`
+. Update `Pikajs.splitAnimationElement` to `Pikajs.splitContent`
+. Add `Pikajs.splitContentWithParity`
+
+== 0.1.4 2023-04-21
+. Update document
+. Optimize code
+. Update `CalcMinMain` with parent node
+
+== 0.1.3 2023-01-03
+. Update `Pikajs`
+. Add `DOCUMENT.md`
+. Update copyright
+
+== 0.1.2 2022-11-10
+. Add `Pikajs` class
+. Update document
+. Fixed misspelling of method names
+. Change `uglify-js` to `terser` for compress
+
+== 0.1.1 2022-10-13
+. Add password quality calculator
+. Fixed bug
+. Update document
+
+== 0.1.0 2022-09-25
+. Add `main` tag `min-height` calculator.
+. Add invaild info util

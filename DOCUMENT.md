@@ -1,6 +1,13 @@
 # Pika JS document
 
-## `Pikajs`
+## Build
+
+```shell
+npm install
+npm run compress
+```
+
+## `Pikajs` class
 
 ### `calcMinMain`
 
@@ -12,34 +19,34 @@ window.addEventListener('load', (event) => {
 });
 ```
 
-### `calcMinMain(parentNode)`
+Result:
+
+```html
+<main style="min-height: calc(100vh - 26px)">
+</main>
+```
+
+`26px` is `headerHeight + footerHeight`, if include `selection` tag, `footerHeight` is 0.
+
+### `calcMinMainWithParent(parentNode)`
 
 Calculate `min-height` and fill it in the style of the `main`, and ensure that main fills the entire page.
 
 ```js
 window.addEventListener('load', (event) => {
     let app = document.getElementById('app');
-    Pikajs.calcMinMain(app);
+    Pikajs.calcMinMainWithParent(app);
 });
 ```
 
-### `invalidInfo(inputId='',inputEId='', regex='', message='')`
-
-Add or remove a `p` tag with `inputEId` below the tag to display validation information.
-
-like this:
+Result:
 
 ```html
-<div>
-    <input type="text" id="{{inputId}}" />
-</div>
-<script>
-  document.getElementById('inputId').onchange = (event) => {
-    Pikajs.invalidInfo('{{inputId}}','{{inputEId}}', '{{regex}}', '{{message}}');
-    // when inputId is invalid with regex, add <p id="{{inputEId}}">{{message}}</p> under input.
-  }
-</script>
+<main style="min-height: calc(100vh - 26px)">
+</main>
 ```
+
+`26px` is `headerHeight + footerHeight`, if include `selection` tag, `footerHeight` is 0.
 
 ### `passQCalc(pass='')`
 
@@ -57,29 +64,33 @@ pqcalc('P422w0Rd').then((result) => {
 });
 ```
 
-### `getSelectorHeight(selector='')`
+### `getFirstSelectorHeight(selector)`
 
-Get element selector height
+Get first selector height
 
-### `getSelectorHeight(parentNode,selector='')`
+### `getFirstSelectorHeightWithParent(parentNode,selector)`
 
-Get element selector height under parent node
+Get first selector height under parent node
 
-### `hasSelectionHeight()`
+### `hasSelectorHeight(selector)`
 
-Has section tag
+Has first selector
 
-### `hasSelectionHeight(parentNode)`
+### `hasSelectorHeightWithParent(parentNode, selector)`
 
-Has section tag under parent node
+Has first selector under parent node
 
 ### `isPassword(pass="")`
 
 Is password (only ASCII printable characters without space)
 
-### `checkRepeat(text="")`
+### `checkConsRepeats(text="")`
 
-Check repeat character
+Check for consecutive repeated characters
+
+### `checkConsRepeatsWithIgnoreCase(text="")`
+
+Check for consecutive repeated characters with ignore case
 
 ### `checkChar(text="", regex="")`
 
@@ -113,6 +124,14 @@ Decode Base64 to byte buffer
 
 Encode byte buffer to Base64
 
+### `base64Encode(data="")`
+
+Base64 Encoder
+
+### `base64Decode(data="")`
+
+Base64 Decoder
+
 ### `stringToArrayBuffer(str)`
 
 Convert string to byte buffer
@@ -123,7 +142,7 @@ Convert byte buffer to string
 
 ### `getDarkMode()`
 
-Get browser dark mode
+Get browser dark mode status
 
 Return undefined is unsupported, true is dark mode, false is light mode
 
@@ -140,16 +159,16 @@ to
 const animaEles = document.body.querySelectorAll(".animEles");
 animaEles.forEach((e) => {
     Pikajs.splitContent(e.innerHTML, "", "em")
-        .then(function (event) {
+        .then((event) => {
             e.innerHTML = event;
         })
-        .catch(function (error) {
+        .catch((error) => {
             console.log(error);
         });
 });
 ```
 
-### `splitContentWithParity(content = "", separator = "", splitTag = "", evenClass = "", oddClass = "")`
+### `splitContentWithParity(content = "", separator = "", splitTag = "", oddClass = "", evenClass = "")`
 
 Split content with parity
 
@@ -161,11 +180,11 @@ to
 ```javascript
 const animaEles = document.body.querySelectorAll(".animEles");
 animaEles.forEach((e) => {
-    Pikajs.splitContent(e.innerHTML, "", "em", "even", "odd")
-        .then(function (event) {
+    Pikajs.splitContentWithParity(e.innerHTML, "", "em", "odd", "even")
+        .then((event) => {
             e.innerHTML = event;
         })
-        .catch(function (error) {
+        .catch((error) => {
             console.log(error);
         });
 });
