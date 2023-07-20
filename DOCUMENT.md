@@ -2,12 +2,12 @@
 
 ## Build
 
-```
+```shell
 npm install
 npm run compress
 ```
 
-## `Pikajs`
+## `Pikajs` class
 
 ### `calcMinMain`
 
@@ -20,10 +20,12 @@ window.addEventListener('load', (event) => {
 ```
 
 Result:
+
 ```html
 <main style="min-height: calc(100vh - 26px)">
 </main>
 ```
+
 `26px` is `headerHeight + footerHeight`, if include `selection` tag, `footerHeight` is 0.
 
 ### `calcMinMainWithParent(parentNode)`
@@ -38,29 +40,13 @@ window.addEventListener('load', (event) => {
 ```
 
 Result:
+
 ```html
 <main style="min-height: calc(100vh - 26px)">
 </main>
 ```
+
 `26px` is `headerHeight + footerHeight`, if include `selection` tag, `footerHeight` is 0.
-
-### `invalidInfo(inputId='',inputEId='', regex='', message='')`
-
-Add or remove a `p` tag with `inputEId` below the tag to display validation information.
-
-like this:
-
-```html
-<div>
-    <input type="text" id="{{inputId}}" />
-</div>
-<script>
-  document.getElementById('inputId').onchange = (event) => {
-    Pikajs.invalidInfo('{{inputId}}','{{inputEId}}', '{{regex}}', '{{message}}');
-    // when inputId is invalid with regex, add <p id="{{inputEId}}">{{message}}</p> under input.
-  }
-</script>
-```
 
 ### `passQCalc(pass='')`
 
@@ -101,6 +87,10 @@ Is password (only ASCII printable characters without space)
 ### `checkConsRepeats(text="")`
 
 Check for consecutive repeated characters
+
+### `checkConsRepeatsWithIgnoreCase(text="")`
+
+Check for consecutive repeated characters with ignore case
 
 ### `checkChar(text="", regex="")`
 

@@ -42,55 +42,19 @@ class Pikajs {
   }
 
   /**
-   * Add message under the input tag with regex
-   *
-   * @param {string} [inputId=''] input tag id
-   * @param {string} [inputETag=''] input error message tag when not found error id
-   * @param {string} [inputEId=''] input error message id
-   * @param {string} [regex=''] regex
-   * @param {string} [message=''] message
-   */
-  static invalidInfo(inputId = '', inputETag = '', inputEId = '', regex = '', message = '') {
-    const validInput = document.getElementById(inputId);
-    const flag = !new RegExp(regex).test(validInput.value);
-    let inputEi = document.getElementById(inputEId);
-    if (inputEi == null) {
-      inputEi = document.createElement(inputETag);
-      inputEi.setAttribute('id', inputEId);
-    }
-    this.invalidChild(validInput.parentNode, flag, inputEi, message);
-  }
-
-  /**
-   * Invalid child message
-   *
-   * @param {HTMLElement} parentNode valid parent element
-   * @param {boolean} flag child flag
-   * @param {HTMLElement} errorNode error element
-   * @param {string} errrorMessage error message 
-   */
-  static invalidChild(parentNode, flag = false, errorNode, errrorMessage = '') {
-    if (flag) {
-      errorNode.innerText = errrorMessage;
-      parentNode.appendChild(errorNode);
-    } else {
-      parentNode.removeChild(errorNode);
-    }
-  }
-
-  /**
    * Calculator password quality
    *
    * @param {string} [pass=""] password text
    * @returns {number} quality score
    */
   static passQCalc(pass = "") {
+    const strLength = pass.length;
     let rankScore = 0;
 
-    rankScore += (pass.length > 8) ? 4 : 0;
-    rankScore += (pass.length - this.checkChar(pass, /\p{Lu}/gu)) * 3;
-    rankScore += (pass.length - this.checkChar(pass, /\p{Ll}/gu)) * 2;
-    rankScore += (pass.length - this.checkChar(pass, /\d/gu)) * 2;
+    rankScore += (strLength > 8) ? 4 : 0;
+    rankScore += (strLength - this.checkChar(pass, /\p{Lu}/gu)) * 3;
+    rankScore += (strLength - this.checkChar(pass, /\p{Ll}/gu)) * 2;
+    rankScore += (strLength - this.checkChar(pass, /\d/gu)) * 2;
     rankScore += this.checkChar(pass, /((?=\p{P})[^\p{Lu}\p{Ll}\d])/gu) * 6;
 
     rankScore -= this.checkChar(pass, /\p{Lu}{3,}/gu) * 2;
@@ -149,19 +113,6 @@ class Pikajs {
   }
 
   /**
-   * Is password (only ASCII printable characters without space)
-   *
-   * @param {string} [pass=""] password text, length is between 8 and 20
-   * @returns {boolean} true if text is password
-   */
-  static isPassword(pass = "") {
-    // ASCII printable characters, letters, digits, punctuation marks, and a few miscellaneous symbols.
-    // But without space.
-    const regex = /^[\x21-\x7E]{8,20}$/g;
-    return regex.test(pass);
-  }
-
-  /**
    * Check for consecutive repeated characters
    *
    * @param {string} [text=""] text
@@ -170,7 +121,27 @@ class Pikajs {
   static checkConsRepeats(text = "") {
     let count = 0;
     for (let i = 0; i < text.length - 1; i++) {
-      if (text[i] === text[i + 1]) {
+      const currentChar = text[i];
+      const nextChar = text[i + 1]
+      if (currentChar === nextChar) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  /**
+   * Check for consecutive repeated characters with ignore case
+   *
+   * @param {string} [text=""] text
+   * @returns {number} repeat character number
+   */
+  static checkConsRepeatsWithIgnoreCase(text = "") {
+    let count = 0;
+    for (let i = 0; i < text.length - 1; i++) {
+      const currentChar = text[i];
+      const nextChar = text[i + 1]
+      if (currentChar.toLowerCase() === nextChar.toLowerCase()) {
         count++;
       }
     }
@@ -189,6 +160,19 @@ class Pikajs {
       return text.match(regex).length;
     }
     return 0;
+  }
+
+  /**
+   * Is password (only ASCII printable characters without space)
+   *
+   * @param {string} [pass=""] password text, length is between 8 and 20
+   * @returns {boolean} true if text is password
+   */
+  static isPassword(pass = "") {
+    // ASCII printable characters, letters, digits, punctuation marks, and a few miscellaneous symbols.
+    // But without space.
+    const regex = /^[\x21-\x7E]{8,20}$/g;
+    return regex.test(pass);
   }
 
   /**
