@@ -1,14 +1,15 @@
 = Pika JS
 
-== 0.1.6 2023-
+== 0.1.6 2023-07-20
 . Rename `Pikajs.getSelectorHeight` to `Pikajs.getFirstSelectorHeight` and `Pikajs.getFirstSelectorHeightWithParent`
 . Rename `Pikajs.hasSelectionHeight` to `Pikajs.hasSelectorHeight` and `Pikajs.hasSelectorHeightWithParent`
 . Rename `Pikajs.calcMinMain(parentNode)` to `Pikajs.calcMinMainWithParent(parentNode)`
 . Rename `Pikajs.checkRepeat` to `Pikajs.checkConsRepeats`
 . Add `Pikajs.base64Encode` and `Pikajs.base64Decode`
-. Update `Pikajs.invalidInfo` to  `Pikajs.invalidInfo(inputId, inputETag, inputEId, regex, message)`
+. Delete `Pikajs.invalidInfo`
 . Update document
 . Optimize code
+. Add project logo
 
 == 0.1.5 2023-06-21
 . Update document

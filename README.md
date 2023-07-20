@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/leonardwoo/pika-js" target="_blank">
-    <img alt="PikaJS" src="https://projects.l6d.me/images/pika.svg" width="150" />
+    <img alt="PikaJS" src="https://projects.l6d.me/images/pika2.svg" width="150" />
   </a>
 </p>
 
