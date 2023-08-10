@@ -1,8 +1,8 @@
-/*! Pika-js | MIT License | https://github.com/leonardwoo/pika-js */
+/*! Pika-js v0.1.7 | MIT License | https://github.com/leonardwoo/pika-js */
 "use strict";
 
 /**
- * Pikajs class
+ * Pika js
  *
  * @author Leonard Woo
  */
@@ -50,6 +50,9 @@ class Pikajs {
   static passQCalc(pass = "") {
     const strLength = pass.length;
     let rankScore = 0;
+    if (!this.isPassword(pass)) {
+      return rankScore;
+    }
 
     rankScore += (strLength > 8) ? 4 : 0;
     rankScore += (strLength - this.checkChar(pass, /\p{Lu}/gu)) * 3;
@@ -113,6 +116,17 @@ class Pikajs {
   }
 
   /**
+   * Inject a css text in head tag
+   *
+   * @param {string} styleText css text
+   */
+  static injectStyleInHead(styleText = "") {
+    let headStyleSheet = document.createElement('style');
+    headStyleSheet.innerHTML = styleText;
+    document.head.appendChild(headStyleSheet);
+  }
+
+  /**
    * Check for consecutive repeated characters
    *
    * @param {string} [text=""] text
@@ -165,13 +179,13 @@ class Pikajs {
   /**
    * Is password (only ASCII printable characters without space)
    *
-   * @param {string} [pass=""] password text, length is between 8 and 20
+   * @param {string} [pass=""] password text
    * @returns {boolean} true if text is password
    */
   static isPassword(pass = "") {
     // ASCII printable characters, letters, digits, punctuation marks, and a few miscellaneous symbols.
     // But without space.
-    const regex = /^[\x21-\x7E]{8,20}$/g;
+    const regex = /^[\x21-\x7E]+$/gu;
     return regex.test(pass);
   }
 
@@ -179,9 +193,9 @@ class Pikajs {
    * Is uppercase letter character
    *
    * @param {string} [text=""] text
-   * @returns {boolean} true is has uppercase character
+   * @returns {boolean} true is having uppercase character
    */
-  static isUpperChar(text = "") {
+  static isUppercase(text = "") {
     // A-Z
     const regex = /\p{Lu}+/gu;
     return regex.match(text).length > 0;
@@ -191,23 +205,23 @@ class Pikajs {
    * Is lowercase letter character
    *
    * @param {string} [text=""] text
-   * @returns {boolean} true is has lowercase character
+   * @returns {boolean} true is having lowercase character
    */
-  static isLowerChar(text = "") {
+  static isLowercase(text = "") {
     // a-z
     const regex = /\p{Ll}+/gu;
     return regex.match(text).length > 0;
   }
 
   /**
-   * Is digit character
+   * Is integer or decimal character
    *
    * @param {string} [text=""] text
-   * @returns {boolean} true is has digit character
+   * @returns {boolean} true is having digit character
    */
-  static isDigit(text = "") {
-    // 0-9
-    const regex = /\p{Nd}+/gu;
+  static isDecimal(text = "") {
+    // -?[0-9]+(.[0-9]+)?
+    const regex = /-?\d+(.\d+)?/gu;
     return regex.match(text).length > 0;
   }
 
@@ -215,7 +229,7 @@ class Pikajs {
    * Is punctuation character
    *
    * @param {string} [text=""] text
-   * @returns {boolean} true is has punctuation character
+   * @returns {boolean} true is having punctuation character
    */
   static isPunctuation(text = "") {
     // [\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]
@@ -227,7 +241,7 @@ class Pikajs {
    * Is white space character
    *
    * @param {string} [text=""] text
-   * @returns {boolean} true is has white space character
+   * @returns {boolean} true is having white space character
    */
   static isWhiteSpace(text = "") {
     // space tab

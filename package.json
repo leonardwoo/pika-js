@@ -1,6 +1,6 @@
 {
   "name": "@leonardwoo/pika-js",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A javascript toolkit",
   "main": "dist/pika.min.js",
   "scripts": {

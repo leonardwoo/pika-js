@@ -80,6 +80,10 @@ Has first selector
 
 Has first selector under parent node
 
+### `injectStyleInHead(styleText="")`
+
+Inject a css text in head tag
+
 ### `isPassword(pass="")`
 
 Is password (only ASCII printable characters without space)
@@ -96,17 +100,17 @@ Check for consecutive repeated characters with ignore case
 
 Check character with regex
 
-### `isUpperChar(text="")`
+### `isUppercase(text="")`
 
 Is uppercase letter character
 
-### `isLowerChar(text="")`
+### `isLowercase(text="")`
 
 Is lowercase letter character
 
-### `isDigit(text="")`
+### `isDecimal(text="")`
 
-Is digit character
+Is integer or decimal character
 
 ### `isPunctuation(text="")`
 
