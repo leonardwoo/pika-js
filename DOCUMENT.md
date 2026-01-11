@@ -193,3 +193,7 @@ animaEles.forEach((e) => {
         });
 });
 ```
+
+### `contains(text = "", stearchString = "")`
+
+Returns true if and only if this string contains the specified string.

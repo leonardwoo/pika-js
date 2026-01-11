@@ -392,4 +392,15 @@ class Pikajs {
     }
     return targetTag.innerHTML;
   }
+
+  /**
+   * Returns true if and only if this string contains the specified string.
+   * 
+   * @param {string} text string
+   * @param {string} stearchString the string to search for
+   * @returns true if this string contains s, false otherwise.
+   */
+  static contains(text = "", stearchString = "") {
+    return text.indexOf(stearchString) > -1;
+  }
 }

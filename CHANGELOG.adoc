@@ -1,5 +1,12 @@
 = Pika JS
 
+== 0.1.7
+. Add `injectStyleInHead`
+. Add `contains`
+. Change some function name
+. Update some function
+. Update document
+
 == 0.1.6 2023-07-20
 . Rename `Pikajs.getSelectorHeight` to `Pikajs.getFirstSelectorHeight` and `Pikajs.getFirstSelectorHeightWithParent`
 . Rename `Pikajs.hasSelectionHeight` to `Pikajs.hasSelectorHeight` and `Pikajs.hasSelectorHeightWithParent`

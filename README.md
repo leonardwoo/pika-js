@@ -43,7 +43,3 @@ A javascript toolkit that includes DOM processing, string validation, etc.
 ## Document
 
 See [Document](DOCUMENT.md)
-
-## Sponsors
-
-<a href="https://www.jetbrains.com/" target="_blank"><img src="https://seppiko.org/images/jetbrains.png" alt="JetBrians" width="100px" /></a>
